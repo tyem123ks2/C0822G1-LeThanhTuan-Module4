@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body><div class="col-lg-3">
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th scope="col">STT</th>
