@@ -31,7 +31,12 @@ private static final Map<Integer, Product> productList;
 
     @Override
     public Product findById(int id) {
-        return productList.get(id);
+        for (Product product1 : productList.values()){
+            if (product1.getId() == id){
+                return product1;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -46,6 +51,12 @@ private static final Map<Integer, Product> productList;
 
     @Override
     public List<Product> findByName(String name) {
-        return null;
+        List<Product> products = new ArrayList<>();
+        for (Product item: productList.values()){
+            if (item.getName().contains(name)){
+                products.add(item);
+            }
+        }
+        return products;
     }
 }

@@ -2,76 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1da525bc-af47-4557-a1ba-df399d6c7eab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/6.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/6.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/6.1/fileChanges/last-build.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/6.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/6.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/6.1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.gradle/vcs-1/gc.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/build/tmp/war/MANIFEST.MF" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/controller/ProductController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/model/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/repository/IProductRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/repository/impl/ProductRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/service/IProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/service/impl/ProductService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/applicationContext.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/dispatcher-servlet.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/views/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/views/delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/views/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/views/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/views/view.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/configuration/AppConfiguration.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/configuration/AppInitializer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/controller/CustomerController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/model/Customer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/service/CustomerService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/service/ICustomerService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build/libs/customer-1.0-SNAPSHOT.war" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/configuration/AppConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/configuration/AppInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/controller/CustomerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/model/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/service/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/service/ICustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/delete.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/layout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/view.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/repository/impl/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/repository/impl/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/service/CustomerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,6 +159,7 @@
       <updated>1675395252523</updated>
       <workItem from="1675395257220" duration="4552000" />
       <workItem from="1675410025170" duration="2544000" />
+      <workItem from="1675613114747" duration="672000" />
     </task>
     <servers />
   </component>
@@ -239,10 +175,11 @@
       <screen x="0" y="0" width="1536" height="816" />
     </state>
     <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser/0.0.1536.816@0.0.1536.816" timestamp="1675395802171" />
-    <state x="549" y="163" key="FileChooserDialogImpl" timestamp="1675410854993">
-      <screen x="0" y="0" width="1536" height="816" />
+    <state x="686" y="206" key="FileChooserDialogImpl" timestamp="1675613126254">
+      <screen x="0" y="0" width="1920" height="1032" />
     </state>
     <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1675410854993" />
+    <state x="686" y="206" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1675613126254" />
     <state width="1024" height="201" key="GridCell.Tab.0.bottom" timestamp="1675410001578">
       <screen x="0" y="0" width="1536" height="816" />
     </state>
