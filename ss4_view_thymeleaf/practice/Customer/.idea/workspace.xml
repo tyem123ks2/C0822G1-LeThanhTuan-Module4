@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="1da525bc-af47-4557-a1ba-df399d6c7eab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../ss3_databinding/exercise/Mailbox/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/repository/impl/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../exercise/ProductManagement/src/main/java/com/example/repository/impl/ProductRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/example/configuration/AppConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/example/configuration/AppConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/customer-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/customer-1.0-SNAPSHOT.war" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +24,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="customer" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -49,25 +55,25 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2LDAPDAdSKLlejUVUfv8FVuq8ac" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../exercise/ProductManagement" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "E:/HOC TAP/module4/ss4_view_thymeleaf/exercise/ProductManagement",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "spring.configuration.checksum": "a82b7268a6e8bacf353cb32fb773b2d4"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\HOC TAP\module4\ss4_view_thymeleaf\practice\Customer\src\main\java\com\example\configuration" />
@@ -84,7 +90,7 @@
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="Unnamed_customer" />
+        <option name="BASE_DIRECTORY_NAME" value="848d231e-4faf-4e36-9f0c-2cf509278289" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -92,7 +98,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="56296" />
+        <option name="DEBUG_PORT" value="50516" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -110,6 +116,21 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
           <option name="USE_DEFAULT" value="true" />
@@ -147,6 +168,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -159,78 +181,23 @@
       <updated>1675395252523</updated>
       <workItem from="1675395257220" duration="4552000" />
       <workItem from="1675410025170" duration="2544000" />
-      <workItem from="1675613114747" duration="672000" />
+      <workItem from="1675613114747" duration="1384000" />
+      <workItem from="1675654088921" duration="113000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="223" y="63" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1675398236171">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state x="223" y="63" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.816@0.0.1536.816" timestamp="1675398236171" />
-    <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser" timestamp="1675395802171">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state x="574" y="124" key="#com.intellij.ide.util.MemberChooser/0.0.1536.816@0.0.1536.816" timestamp="1675395802171" />
-    <state x="686" y="206" key="FileChooserDialogImpl" timestamp="1675613126254">
-      <screen x="0" y="0" width="1920" height="1032" />
-    </state>
-    <state x="549" y="163" key="FileChooserDialogImpl/0.0.1536.816@0.0.1536.816" timestamp="1675410854993" />
-    <state x="686" y="206" key="FileChooserDialogImpl/0.0.1920.1032@0.0.1920.1032" timestamp="1675613126254" />
-    <state width="1024" height="201" key="GridCell.Tab.0.bottom" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.0.bottom/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.0.center" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.0.center/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.0.left" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.0.left/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.0.right" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.0.right/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.1.bottom" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.1.bottom/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.1.center" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.1.center/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.1.left" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.1.left/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.1.right" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.1.right/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.2.bottom" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.2.bottom/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.2.center" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.2.center/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.2.left" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.2.left/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state width="1024" height="201" key="GridCell.Tab.2.right" timestamp="1675410001578">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state width="1024" height="201" key="GridCell.Tab.2.right/0.0.1536.816@0.0.1536.816" timestamp="1675410001578" />
-    <state x="209" y="0" key="new project wizard" timestamp="1675398684954">
-      <screen x="0" y="0" width="1536" height="816" />
-    </state>
-    <state x="209" y="0" key="new project wizard/0.0.1536.816@0.0.1536.816" timestamp="1675398684954" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

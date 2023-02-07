@@ -1,4 +1,4 @@
-package com.codegym.config;
+package com.example.config;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
