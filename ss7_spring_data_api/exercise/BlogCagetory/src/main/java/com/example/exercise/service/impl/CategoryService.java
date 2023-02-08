@@ -1,8 +1,9 @@
 package com.example.exercise.service.impl;
 
 import com.example.exercise.model.Blog;
-import com.example.exercise.repository.IBlogRepository;
-import com.example.exercise.service.IBlogService;
+import com.example.exercise.model.Category;
+import com.example.exercise.repository.ICagetoryRepository;
+import com.example.exercise.service.ICagetoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
@@ -14,24 +15,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BlogService implements IBlogService {
+public class CategoryService implements ICagetoryService {
 
     @Autowired
-    private IBlogRepository blogRepository;
+    private ICagetoryRepository cagetoryRepository;
 
     @Override
-    public List<Blog> showAllBlog() {
-        return blogRepository.findAll();
+    public List<Category> showAllCategory() {
+        return cagetoryRepository.findAll();
     }
 
-
     @Override
-    public boolean addNewBlog(Blog blog) {
-        try {
-            if (blogRepository.findByTitle(blog.getTitle()) == null) {
+    public boolean addNewCategory(Category category) {
+        try{
+            if (cagetoryRepository.findByName(category.getName()) == null){
                 throw new SQLDataException();
             }
-            blogRepository.save(blog);
+            cagetoryRepository.save(category);
         } catch (IllegalArgumentException | OptimisticLockingFailureException | SQLDataException e) {
             return false;
         }
@@ -39,12 +39,12 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public boolean updateBlog(Blog blog) {
-        if (!blogRepository.existsById(blog.getId())) {
+    public boolean updateCategory(Category category) {
+        if (!cagetoryRepository.existsById(category.getId())) {
             return false;
         }
         try {
-            blogRepository.save(blog);
+            cagetoryRepository.save(category);
         } catch (IllegalArgumentException | OptimisticLockingFailureException e) {
             return false;
         }
@@ -52,25 +52,22 @@ public class BlogService implements IBlogService {
     }
 
     @Override
-    public boolean removeBlog(int id) {
+    public boolean removeCategory(int id) {
         try {
-            blogRepository.deleteById(id);
+            cagetoryRepository.deleteById(id);
         } catch (IllegalArgumentException e) {
             return false;
         }
         return true;
     }
 
-
     @Override
-    public Optional<Blog> findById(int id) {
-        return blogRepository.findById(id);
+    public Optional<Category> findById(int id) {
+        return Optional.empty();
     }
 
     @Override
-    public Page<Blog> findByTitleCategory(String title, Pageable pageable) {
-        return null;
+    public Page<Category> findByNameCategory(String name, Pageable pageable) {
+        return cagetoryRepository.findByNameCagetory(name, pageable);
     }
-
-
 }
