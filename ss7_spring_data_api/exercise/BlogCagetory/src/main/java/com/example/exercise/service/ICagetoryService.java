@@ -20,4 +20,5 @@ public interface ICagetoryService {
     Optional<Category> findById(int id);
 
     Page<Category> findByNameCategory(String name, Pageable pageable);
+
 }

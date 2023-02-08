@@ -18,8 +18,6 @@ public interface IBlogService {
 
     Optional<Blog> findById(int id);
 
-    Page<Blog> findByTitleCategory(String title, Pageable pageable);
-
-
+    Page<Blog> findByTitleContaining(String title, Pageable pageable);
 
 }

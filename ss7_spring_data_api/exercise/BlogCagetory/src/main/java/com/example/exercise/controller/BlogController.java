@@ -2,13 +2,19 @@ package com.example.exercise.controller;
 
 import com.example.exercise.model.Blog;
 import com.example.exercise.service.IBlogService;
+import com.example.exercise.service.ICagetoryService;
 import com.example.exercise.service.impl.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -21,13 +27,23 @@ public class BlogController {
     @Autowired
     private IBlogService blogService;
 
+    @Autowired
+    private ICagetoryService cagetoryService;
+
     @GetMapping(value = "/show-list")
-    public String showList(Model model) {
-        List<Blog> blogList = blogService.showAllBlog();
-        model.addAttribute("blogList", blogList);
-        Blog blog = new Blog();
-        model.addAttribute("blog", blog);
-        return "blog/list";
+    public String showList(Model model, @RequestParam(required = false, defaultValue = "") String titleSearch,
+                           @PageableDefault(size = 2, page = 0, sort = "startDay", direction = Sort.Direction.DESC) Pageable pageable) {
+        Page<Blog> blogPage = blogService.findByTitleContaining(titleSearch, pageable);
+        if (blogPage.isEmpty()) {
+            model.addAttribute("message", "Không tìm thấy blog");
+
+        } else {
+            model.addAttribute("blogPage", blogPage);
+            model.addAttribute("title", titleSearch);
+        }
+        model.addAttribute("listCategory", cagetoryService.showAllCategory());
+        model.addAttribute("blog", new Blog());
+        return "list";
     }
 
     @GetMapping(value = "/detail/{id}")
