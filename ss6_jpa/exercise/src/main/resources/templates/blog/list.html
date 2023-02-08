@@ -9,6 +9,7 @@
 </head>
 <body>
 <a href="/show-add-form">add</a>
+<p th:text="${message}"></p>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -21,10 +22,9 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="blog,stt: ${blogList}>
-
+    <tr th:each="blog,stt: ${blogList}">
         <th scope="row" th:text="${stt.count}"></th>
-        <td><a th:href="@{/show-detail/__${blog.id}__}" th:text="${blog.title}">
+        <td><a th:href="@{/detail/__${blog.id}__}" th:text="${blog.title}">
         </a></td>
         <td th:text="${blog.author}"></td>
         <td th:text="${blog.date}"></td>
@@ -38,7 +38,7 @@
     </tr>
     </tbody>
 </table>
- Modal
+<!-- Modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

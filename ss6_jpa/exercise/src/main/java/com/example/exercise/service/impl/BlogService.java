@@ -25,11 +25,11 @@ public class BlogService implements IBlogService {
     @Override
     public boolean addNewBlog(Blog blog) {
         try {
-            if (blogRepository.findByTitle(blog.getTitle()) != null) {
+            if (blogRepository.findByTitle(blog.getTitle()) == null) {
                 throw new SQLDataException();
             }
             blogRepository.save(blog);
-        } catch (SQLDataException throwables) {
+        } catch (IllegalArgumentException | OptimisticLockingFailureException | SQLDataException e) {
             return false;
         }
         return true;

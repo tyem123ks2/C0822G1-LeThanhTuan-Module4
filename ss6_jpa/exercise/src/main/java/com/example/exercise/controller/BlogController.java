@@ -1,6 +1,7 @@
 package com.example.exercise.controller;
 
 import com.example.exercise.model.Blog;
+import com.example.exercise.service.IBlogService;
 import com.example.exercise.service.impl.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,9 @@ public class BlogController {
 
 
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
 
-    @GetMapping(value = "/list")
+    @GetMapping(value = "/show-list")
     public String showList(Model model) {
         List<Blog> blogList = blogService.showAllBlog();
         model.addAttribute("blogList", blogList);
@@ -53,7 +54,7 @@ public class BlogController {
             message = "Thêm mới thất bại!";
         }
         redirectAttributes.addFlashAttribute("message", message);
-        return "redirect:/list";
+        return "redirect:/show-list";
     }
 
     @GetMapping(value = "/show-edit/{id}")
@@ -73,7 +74,7 @@ public class BlogController {
             message = "Chỉnh sửa thất bại!";
         }
         redirectAttributes.addFlashAttribute("message", message);
-        return "/redirect:/list";
+        return "/redirect:/show-list";
     }
 
     @GetMapping(value = "/delete")
