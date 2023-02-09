@@ -1,10 +1,51 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+<h1 style="color: blue"> ADD NEW USER</h1>
 
+<a th:href="@{/show-list}">Back to Song list</a>
+
+<form class="w-25 border border-2 border-dark p-3 rounded"
+      th:object="${songDto}"
+      th:action="@{/create}" method="post" th:object="${songDto}">
+    <table>
+        <tr>
+            <td>First name:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('Name')}" th:errors="*{name}"></p>
+                <input type="text" th:field="*{name}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Last name:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('single')}" th:errors="*{singer}"></p>
+                <input type="text" th:field="*{singer}"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Phone Number:</td>
+            <td>
+                <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
+                <input type="number" th:field="*{category}"/>
+            </td>
+        </tr>
+
+    </table>
+
+    <input type="submit" value="Save"/>
+</form>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 </html>

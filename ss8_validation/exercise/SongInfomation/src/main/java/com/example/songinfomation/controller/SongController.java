@@ -24,7 +24,7 @@ public class SongController {
     @GetMapping("/show-list")
     public  String showListSong(Model model){
         List<Song> songList = songService.showInfo();
-        model.addAttribute("listSong", songList);
+        model.addAttribute("songList", songList);
         Song song = new Song();
         model.addAttribute("song", song);
         return "/list";
@@ -34,7 +34,7 @@ public class SongController {
     public String createNewSong(Model model){
         Song song = new Song();
         model.addAttribute("song", song);
-        return "/create";
+        return "create";
     }
 
     @PostMapping("/create")
@@ -47,6 +47,6 @@ public class SongController {
         Song song = new Song();
         BeanUtils.copyProperties(songDto,song);
         redirectAttributes.addFlashAttribute("messasge", "Thêm mới bài hát thành công");
-        return "/list";
+        return "redirect:/list";
     }
 }
