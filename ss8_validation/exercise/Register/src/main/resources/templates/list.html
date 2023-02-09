@@ -44,37 +44,26 @@
         </div>
     </div>
 </nav>
-<a href="/show-create-user">add</a>
-<p th:text="${message}"></p>
+<a th:href="@{/user/create}">Add new User</a><br>
+<p style="color: green" th:text="${message}"></p>
 <table class="table table-striped">
-    <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">firstName</th>
-        <th scope="col">lastName</th>
-        <th scope="col">phoneNumber</th>
-        <th scope="col">age</th>
-        <th scope="col">Email</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
+        <th>#</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Phone number</th>
+        <th>Age</th>
+        <th>Email</th>
     </tr>
-    </thead>
-<!--    <tbody>-->
-<!--    <tr th:each="user,stt: ${userList}">-->
-<!--        <th scope="row" th:text="${stt.count}"></th>-->
-<!--        <td><a th:href="@{/detail/__${blog.id}__}" th:text="${blog.title}">-->
-<!--        </a></td>-->
-<!--        <td th:text="${blog.author}"></td>-->
-<!--        <td th:text="${blog.date}"></td>-->
-<!--        <td><a th:href="@{/show-edit/__${blog.id}__}">Edit</a></td>-->
-<!--        <td>-->
-<!--            <button type="button" th:attr="onclick=|getBlogId('${blog.id}','${blog.title}')|" class="btn btn-primary"-->
-<!--                    data-bs-toggle="modal" data-bs-target="#exampleModal">-->
-<!--                Delete-->
-<!--            </button>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--    </tbody>-->
+
+    <tr th:each="user, status : ${userList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.phoneNumber}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+    </tr>
 </table>
 </body>
 </html>
