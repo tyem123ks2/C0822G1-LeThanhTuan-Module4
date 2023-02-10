@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,34 +9,36 @@
 <body>
 <h1 style="color: blue"> ADD NEW USER</h1>
 
-<a th:href="@{/show-list}">Back to Song list</a>
+<a th:href="@{/show-list-song}">Back to Song list</a>
 
 <form class="w-25 border border-2 border-dark p-3 rounded"
-      th:object="${songDto}"
       th:action="@{/create}" method="post" th:object="${songDto}">
     <table>
         <tr>
-            <td>First name:</td>
+            <td>Name of the song:</td>
             <td>
-                <p style="color: red" th:if="${#fields.hasErrors('Name')}" th:errors="*{name}"></p>
-                <input type="text" th:field="*{name}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                <input type="text" th:field="*{name}"/><br>
             </td>
+<!--            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"> Name Error </td>-->
         </tr>
 
         <tr>
-            <td>Last name:</td>
+            <td>Single:</td>
             <td>
-                <p style="color: red" th:if="${#fields.hasErrors('single')}" th:errors="*{singer}"></p>
+                <p style="color: red" th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}"></p>
                 <input type="text" th:field="*{singer}"/>
             </td>
+<!--            <td th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}" style="color: red"> Single Error </td>-->
         </tr>
 
         <tr>
-            <td>Phone Number:</td>
+            <td>Category:</td>
             <td>
                 <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
-                <input type="number" th:field="*{category}"/>
+                <input type="text" th:field="*{category}"/>
             </td>
+<!--            <td th:if="${#fields.hasErrors('category')}" th:errors="*{category}" style="color: red"> Category Error </td>-->
         </tr>
 
     </table>

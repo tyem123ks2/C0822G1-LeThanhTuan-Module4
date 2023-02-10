@@ -21,23 +21,21 @@ public class SongController {
     @Autowired
     private ISongService songService;
 
-    @GetMapping("/show-list")
+    @GetMapping(value="/show-list-song")
     public  String showListSong(Model model){
-        List<Song> songList = songService.showInfo();
-        model.addAttribute("songList", songList);
-        Song song = new Song();
-        model.addAttribute("song", song);
+        List<Song> song = songService.showInfo();
+        model.addAttribute("songList",song);
         return "/list";
     }
 
-    @GetMapping("/show-create-song")
+    @GetMapping(value="/show-create-song")
     public String createNewSong(Model model){
-        Song song = new Song();
-        model.addAttribute("song", song);
-        return "create";
+        SongDto songDto = new SongDto();
+        model.addAttribute("songDto", songDto);
+        return "/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping(value="/create")
     public String save(@Validated @ModelAttribute SongDto songDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         new SongDto().validate(songDto, bindingResult);
         if (bindingResult.hasFieldErrors()){
@@ -46,7 +44,8 @@ public class SongController {
         }
         Song song = new Song();
         BeanUtils.copyProperties(songDto,song);
+        songService.addNewSong(song);
         redirectAttributes.addFlashAttribute("messasge", "Thêm mới bài hát thành công");
-        return "redirect:/list";
+        return "redirect:/show-list-song";
     }
 }
