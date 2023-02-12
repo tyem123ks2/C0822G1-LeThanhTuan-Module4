@@ -6,8 +6,6 @@ import com.example.register.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
-
 import java.sql.SQLDataException;
 import java.util.List;
 
@@ -18,13 +16,14 @@ public class UserService implements IUserService {
 
     @Override
     public List<User> showUserList() {
+
         return userRepository.findAll();
     }
 
     @Override
     public boolean addNewUser(User user) {
-        try{
-            if (userRepository.findByLastName(user.getLastName()) == null){
+        try {
+            if (userRepository.findByLastName(user.getLastName()) == null) {
                 throw new SQLDataException();
             }
             userRepository.save(user);
@@ -35,8 +34,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean updateUser(User blog) {
-        return false;
+    public boolean updateUser(User user) {
+        if (!userRepository.existsById(user.getId())) {
+            return false;
+        }
+        try {
+            userRepository.save(user);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
-
 }

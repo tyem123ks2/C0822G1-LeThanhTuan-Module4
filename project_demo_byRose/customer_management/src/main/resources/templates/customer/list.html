@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<a th:href="@{/customer/show-form-create}">ADD NEW CUSTOMER</a><br>
+<p style="color: green" th:text="${message}"></p>
+<table class="table table-striped">
+    <tr>
+        <th>#</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Detail</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="customer, status : ${customerList}">
+        <td th:text="${status.count}"></td>
+        <td th:text="${customer.firstName}"></td>
+        <td th:text="${customer.lastName}"></td>
+        <td>
+            <button th:attr="onclick=|viewCustomer('${customer.id}','${customer.firstName}',
+            '${customer.lastName}')|"
+                    type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalView"
+                    data-bs-whatever="@mdo"> Chi tiết
+            </button>
+        <td>
+            <button th:attr="onclick=|idUpdate('${customer.id}','${customer.firstName}',
+            '${customer.lastName}')|"
+                    type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalUpdate"
+                    data-bs-whatever="@mdo"> Sửa
+            </button>
+        </td>
+        <td>
+            <button th:attr="onclick=|idDelete('${customer.id}','${customer.firstName}',
+            '${customer.lastName}')|"
+                    type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalDelete"
+                    data-bs-whatever="@mdo"> Xóa
+            </button>
+        </td>
+    </tr>
+</table>
+<!--<div>-->
+<!--    <a th:href="@{/blog(page=${blogPage.number - 1}, titleSearch=${title})}" th:if="${blogPage.hasPrevious()}">Trước</a>-->
+<!--    <span th:text="${blogPage.number + 1}"></span>/<span th:text="${blogPage.totalPages}"></span>-->
+<!--    <a th:href="@{/blog(page=${blogPage.number + 1}, titleSearch=${title})}" th:if="${blogPage.hasNext()}">Sau</a>-->
+<!--</div>-->
+</body>
+<div class="modal fade" id="exampleModalView" tabindex="-1" aria-labelledby="exampleModalLabelView"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="justify-content-center modal-title fs-5" id="exampleModalLabelView"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <legend>View</legend>
+                <input hidden id="viewId" name="viewId">
+                First Name: <p id="viewFirstName" name="viewFirstName"></p><br/>
+                Last Name: <p id="viewLastName" name="viewLastName"></p><br/>
+<!--                Nội dung: <p id="viewContent" name="viewContent"></p><br/>-->
+<!--                Thể loại: <p id="viewCategory" name="viewCategory"></p><br/>-->
+<!--                Tác giả: <p id="viewAuthor" name="viewAuthor"></p><br/>-->
+<!--                Ngày đăng: <p id="viewStartDay" name="viewStartDay"></p><br/>-->
+                </fieldset>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="modal fade" id="exampleModalUpdate" tabindex="-1" aria-labelledby="exampleModalLabelUpdate"-->
+<!--     aria-hidden="true">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h1 class="justify-content-center modal-title fs-5" id="exampleModalLabelUpdate"></h1>-->
+<!--                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <form th:action="@{/customer/edit}" method="post" th:object="${customer}">-->
+<!--                    <fieldset>-->
+<!--                        <legend>Sửa thông tin khách hàng</legend>-->
+<!--                        <input th:field="*{id}" hidden id="updateId" name="updateId">-->
+<!--                       First Name: <input type="text" th:field="*{firstName}"/><br/>-->
+<!--                        Last Name: <input type="text" th:field="*{lastName}"/><br/>-->
+<!--&lt;!&ndash;                        Thể loại: <input type="text" th:field="*{category}"/><br/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        Tác giả: <input type="text" th:field="*{author}"/><br/>&ndash;&gt;-->
+<!--&lt;!&ndash;                        Ngày đăng: <input type="date" th:field="*{startDay}"/><br/>&ndash;&gt;-->
+<!--                    </fieldset>-->
+<!--                    <div class="modal-footer">-->
+<!--                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>-->
+<!--                        <button type="submit" class="btn btn-primary">Sửa Blog</button>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<script>
+    function idDelete(id, firstName, lastName) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").innerText = firstName;
+    }
+</script>
+<script>
+    function idUpdate(id, firstName) {
+        document.getElementById("updateId").value = id;
+        document.getElementById("updateName").innerText = firstName;
+    }
+</script>
+<script>
+    function viewCustomer(id, firstName, lastName) {
+        document.getElementById("viewId").value = id;
+        document.getElementById("viewFirstName").innerText = firstName;
+        document.getElementById("viewLastName").innerText = lastName;
+
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+
+</script>
+</html>

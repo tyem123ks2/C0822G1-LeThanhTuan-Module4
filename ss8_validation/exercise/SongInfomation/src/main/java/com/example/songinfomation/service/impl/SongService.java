@@ -15,6 +15,7 @@ public class SongService implements ISongService {
 
     @Autowired
     private ISongRepository songRepository;
+
     @Override
 
     public List<Song> showInfo() {
@@ -23,8 +24,8 @@ public class SongService implements ISongService {
 
     @Override
     public boolean addNewSong(Song song) {
-        try{
-            if (songRepository.findByName(song.getName()) == null){
+        try {
+            if (songRepository.findByName(song.getName()) == null) {
                 throw new SQLDataException();
             }
             songRepository.save(song);
@@ -35,7 +36,15 @@ public class SongService implements ISongService {
     }
 
     @Override
-    public boolean updateSong(Song Song) {
-        return false;
+    public boolean updateSong(Song song) {
+        if (!songRepository.existsById(song.getId())) {
+            return false;
+        }
+        try {
+            songRepository.save(song);
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+        return true;
     }
 }

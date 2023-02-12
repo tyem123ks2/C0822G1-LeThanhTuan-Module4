@@ -10,5 +10,5 @@ public interface ISongService {
 
     boolean addNewSong(Song song);
 
-    boolean updateSong(Song Song);
+    boolean updateSong(Song song);
 }

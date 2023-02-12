@@ -17,8 +17,8 @@
         <tr>
             <td>Name of the song:</td>
             <td>
-                <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                 <input type="text" th:field="*{name}"/><br>
+                <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
             </td>
 <!--            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red"> Name Error </td>-->
         </tr>
@@ -26,8 +26,8 @@
         <tr>
             <td>Single:</td>
             <td>
-                <p style="color: red" th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}"></p>
                 <input type="text" th:field="*{singer}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}"></p>
             </td>
 <!--            <td th:if="${#fields.hasErrors('singer')}" th:errors="*{singer}" style="color: red"> Single Error </td>-->
         </tr>
@@ -35,14 +35,12 @@
         <tr>
             <td>Category:</td>
             <td>
-                <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
                 <input type="text" th:field="*{category}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></p>
             </td>
 <!--            <td th:if="${#fields.hasErrors('category')}" th:errors="*{category}" style="color: red"> Category Error </td>-->
         </tr>
-
     </table>
-
     <input type="submit" value="Save"/>
 </form>
 </body>

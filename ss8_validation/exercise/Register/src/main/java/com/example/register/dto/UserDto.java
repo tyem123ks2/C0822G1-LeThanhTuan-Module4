@@ -7,9 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import javax.validation.executable.ExecutableValidator;
 import javax.validation.metadata.BeanDescriptor;
 import java.util.Set;
@@ -25,6 +23,10 @@ public class UserDto implements Validator {
     private String phoneNumber;
     @Min(value = 18, message = "Tuổi phải lớn hơn 18")
     private int age;
+    @NotBlank(message = "không được để trống")
+    @Min(value = 7)
+    @Max(value = 64)
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Email không hợp lệ!!")
     private String email;
 
     public UserDto() {
@@ -121,6 +123,7 @@ public class UserDto implements Validator {
         UserDto userDto = (UserDto) target;
 //        Xử lý validate First Name
 //        Xử lý validate Phone Number
+        String email = userDto.getEmail();
         String phoneNumber = userDto.getPhoneNumber();
         if (phoneNumber.length() < 10) {
             errors.rejectValue("phoneNumber", "phoneError1", "Số điện thoại nhập sai!");
@@ -129,6 +132,5 @@ public class UserDto implements Validator {
         } else if (!phoneNumber.matches("^[0-9]+$")) {
             errors.rejectValue("phoneNumber", "phoneError3", "Số điện thoại nhập sai!");
         }
-
     }
 }
