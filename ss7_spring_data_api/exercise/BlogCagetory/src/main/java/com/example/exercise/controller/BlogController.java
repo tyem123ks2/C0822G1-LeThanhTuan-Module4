@@ -3,7 +3,6 @@ package com.example.exercise.controller;
 import com.example.exercise.model.Blog;
 import com.example.exercise.service.IBlogService;
 import com.example.exercise.service.ICagetoryService;
-import com.example.exercise.service.impl.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -98,7 +96,7 @@ public class BlogController {
         boolean check = blogService.removeBlog(blog.getId());
         String message;
         if (check) {
-            message = "Xóa Blog thành công !!";
+            message = "Xóa Blog thành công!!";
         } else {
             message = "Xóa Blog thất bại!";
         }
