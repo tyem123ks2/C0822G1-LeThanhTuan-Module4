@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+<h1 class="d-flex justify-content-center">Category</h1>
+<body>
+<div>
+    <div>
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalAdd"
+                        data-bs-whatever="@mdo">Thêm thể loại
+                </button>
+                <form th:action="@{/category}" class="d-flex" role="search" method="get">
+                    <input type="text" name="nameSearch" th:value="${name}">
+                    <button class="btn btn-outline-success">Tìm kiếm thể loại</button>
+                </form>
+
+            </div>
+        </nav>
+    </div>
+</div>
+<span th:text="${message}"></span>
+
+<table class="table table-view table-bordered">
+    <tr>
+        <th>STT</th>
+        <th>Tên</th>
+        <th>Sửa thể loại</th>
+        <th>Xóa thể loại</th>
+    </tr>
+    <tr th:each="category : ${categoryPage}">
+        <td th:text="${category.id}"></td>
+        <td th:text="${category.name}"></td>
+        <td>
+            <button type="submit" class="btn btn-outline-secondary"
+                    th:attr="onclick=|idUpdate('${category.id}','${category.name}')|"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModalUpdate"
+                    data-bs-whatever="@mdo">Sửa
+            </button>
+
+        </td>
+        <td>
+            <button th:attr="onclick=|idDelete('${category.id}','${category.name}')|"
+                    type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalDelete"
+                    data-bs-whatever="@mdo">Xóa
+            </button>
+        </td>
+    </tr>
+</table>
+<div>
+    <a th:href="@{/category(page=${categoryPage.number - 1}, titleSearch=${name})}" th:if="${categoryPage.hasPrevious()}">Trước</a>
+    <span th:text="${categoryPage.number + 1}"></span>/<span th:text="${categoryPage.totalPages}"></span>
+    <a th:href="@{/category(page=${categoryPage.number + 1}, titleSearch=${name})}" th:if="${categoryPage.hasNext()}">Sau</a>
+</div>
+</body>
+</html>
