@@ -3,6 +3,7 @@ package com.example.furama_resort_management.controller;
 import com.example.furama_resort_management.dto.CustomerDto;
 import com.example.furama_resort_management.model.customer.Customer;
 import com.example.furama_resort_management.model.customer.CustomerType;
+import com.example.furama_resort_management.repository.ICustomerRepository;
 import com.example.furama_resort_management.service.ICustomerService;
 import com.example.furama_resort_management.service.ICustomerTypeService;
 import org.springframework.beans.BeanUtils;
@@ -32,7 +33,7 @@ public class CustomerController {
     private ICustomerTypeService customerTypeService;
 
     @GetMapping(value = "/show-list")
-    public String showList(Model model, Customer customer, @RequestParam(value = "sreachName", defaultValue = "") String name,
+    public String showList(Model model, @RequestParam(value = "sreachName", defaultValue = "") String name,
                            @RequestParam(value = "sreachEmail", defaultValue = "") String email,
                            @RequestParam(value = "searchCustomerTypeId", defaultValue = "-1") int customerTypeId,
                            @PageableDefault(size = 5) Pageable pageable) {

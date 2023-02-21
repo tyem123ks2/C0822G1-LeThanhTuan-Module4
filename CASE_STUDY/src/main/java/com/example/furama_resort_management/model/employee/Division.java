@@ -6,13 +6,22 @@ import java.util.List;
 @Entity
 public class Division {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     @OneToMany(mappedBy = "division")
     private List<Employee> employeeList;
     @Column(columnDefinition = "boolean default false")
-    private boolean isDelete;
+    private boolean isDeleted;
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     public Division() {
     }
 
@@ -39,18 +48,4 @@ public class Division {
     public void setEmployeeList(List<Employee> employeeList) {
         this.employeeList = employeeList;
     }
-
-    public boolean isDelete() {
-        return isDelete;
-    }
-
-    public void setDelete(boolean delete) {
-        isDelete = delete;
-    }
-
-    public Division(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
 }

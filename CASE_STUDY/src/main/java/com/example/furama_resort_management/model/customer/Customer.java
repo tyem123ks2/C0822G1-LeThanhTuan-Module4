@@ -12,7 +12,7 @@ public class Customer {
     private CustomerType customerType;
     private String name;
     private String dateOfBirth;
-    private boolean gender;
+    private int gender;
     @Column(columnDefinition = "varchar(255) unique")
     private String idCard;
 
@@ -29,7 +29,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, CustomerType customerType, String name, String dateOfBirth, boolean gender, String idCard, String phoneNumber, String email, String address, boolean isDeleted) {
+    public Customer(int id, CustomerType customerType, String name, String dateOfBirth, int gender, String idCard, String phoneNumber, String email, String address, boolean isDeleted) {
         this.id = id;
         this.customerType = customerType;
         this.name = name;
@@ -86,11 +86,11 @@ public class Customer {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public boolean isGender() {
+    public int isGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 

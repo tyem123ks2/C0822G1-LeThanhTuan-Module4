@@ -1,6 +1,9 @@
 package com.example.furama_resort_management.model.employee;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -9,20 +12,23 @@ public class Employee {
     private int id;
     private String name;
     private String dateOfBirth;
-    private double salary;
+    private String idCard;
+    private Double salary;
     private String phoneNumber;
     private String email;
     private String address;
+
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")
     private Position position;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
+
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private EducationDegree educationDegree;
-
-    @Column(columnDefinition = "boolean default false")
-    private boolean isDeleted;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
@@ -32,21 +38,6 @@ public class Employee {
     private User user;
 
     public Employee() {
-    }
-
-    public Employee(int id, String name, String dateOfBirth, double salary, String phoneNumber, String email, String address,
-                    Position position, EducationDegree educationDegree, boolean isDeleted, User user) {
-        this.id = id;
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.salary = salary;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.position = position;
-        this.educationDegree = educationDegree;
-        this.isDeleted = isDeleted;
-        this.user = user;
     }
 
     public int getId() {
@@ -73,11 +64,19 @@ public class Employee {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public double getSalary() {
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public Double getSalary() {
         return salary;
     }
 
-    public void setSalary(double salary) {
+    public void setSalary(Double salary) {
         this.salary = salary;
     }
 
@@ -121,12 +120,12 @@ public class Employee {
         this.educationDegree = educationDegree;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public Division getDivision() {
+        return division;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDivision(Division division) {
+        this.division = division;
     }
 
     public User getUser() {
@@ -136,4 +135,13 @@ public class Employee {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
 }

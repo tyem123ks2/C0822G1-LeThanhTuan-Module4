@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class EducationDegree {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     @Column(columnDefinition = "boolean default false")
@@ -16,13 +16,6 @@ public class EducationDegree {
     private List<Employee> employeeList;
 
     public EducationDegree() {
-    }
-
-    public EducationDegree(int id, String name, boolean isDeleted, List<Employee> employeeList) {
-        this.id = id;
-        this.name = name;
-        this.isDeleted = isDeleted;
-        this.employeeList = employeeList;
     }
 
     public int getId() {
