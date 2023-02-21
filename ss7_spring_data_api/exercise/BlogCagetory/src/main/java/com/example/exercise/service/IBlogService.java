@@ -20,4 +20,5 @@ public interface IBlogService {
 
     Page<Blog> findByTitleContaining(String title, Pageable pageable);
 
+    Page<Blog> findBlogByCategory(int id, Pageable pageable);
 }

@@ -1,78 +1,140 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        function addNewBlog() {
+            //lay du lieu
+            let date = $('#date').val();
+            let title = $('#title').val();
+            let author = $('#author').val();
+            let content = $('#content').val();
+            let newBlog = {
+                date: date,
+                title: title,
+                author: author,
+                content: content
+            };
+            // goi ajax
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(newBlog),
+                //tên API
+                url: "/blog/show-list",
+                //xử lý khi thành công
+                success: console.log('success')
+
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        }
+    </script>
 </head>
 <body>
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <form class="d-flex" th:action="@{show-list}" method="get">
-            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
-<a href="/show-add-form">add</a>
-<p th:text="${mess}"></p>
-<div class="row">
-    <div class="col-ld-3">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Category</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="category : ${categoryList}">
-                <td><a th:href="@{/show-list/__${category.id}__}" th:text="${category.name}" style="text-decoration: none"></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<form id="add_blog">
+    <table>
+        <tr>
+            <td> Title:</td>
+            <td><input type="text" id="title" placeholder="Input title"></td>
+        </tr>
+        <tr>
+            <td> Author:</td>
+            <td><input type="text" id="author" placeholder="Input author"></td>
+        </tr>
+        <tr>
+            <td> Date:</td>
+            <td><input type="text" id="date" placeholder="Input date"></td>
+        </tr>
+        <tr>
+            <td> Category:</td>
+            <td><input type="text" id="category" placeholder="Input Category"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="add" onclick="addNewBlog()"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
 
-    </div>
-    <div class="col-lg-6">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                BLOG
-            </tr>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Date</th>
-                <th scope="col">Category</th>
-                <th scope="col">Edit</th>
-                <th scope="col">Delete</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="blog,stt: ${blogList.content}">
+<!--<body>-->
+<!--<nav class="navbar navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--        <form class="d-flex" th:action="@{show-list}" method="get">-->
+<!--            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">-->
+<!--            <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</nav>-->
+<!--<a href="/show-add-form">add</a>-->
+<!--<p th:text="${mess}"></p>-->
+<!--<div class="row">-->
+<!--    <div class="col-ld-3">-->
+<!--        <table class="table table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col">Category</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="category : ${categoryList}">-->
+<!--                <td><a th:href="@{/show-list/__${category.id}__}" th:text="${category.name}"-->
+<!--                       style="text-decoration: none"></a>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
 
-                <th scope="row" th:text="${stt.count+ blogList.number*blogList.size}"></th>
-                <td><a th:href="@{/show-detail/__${blog.id}__}" th:text="${blog.title}">
-                </a></td>
-                <td th:text="${blog.author}"></td>
-                <td th:text="${blog.date}"></td>
-                <td th:text="${blog.category.name}"></td>
-                <td><a th:href="@{/show-edit-form/__${blog.id}__}">Edit</a></td>
-                <td>
-                    <button type="button" th:attr="onclick=|getBlogId('${blog.id}','${blog.title}')|"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-            <a th:href="@{/show-list(page=${blogList.number +1 })}" th:if="${blogList.hasNext()}">
-                Next
-            </a>
-            </tbody>
-        </table>
-    </div>
-</div>
+<!--    </div>-->
+<!--    <div class="col-lg-6">-->
+<!--        <table class="table table-striped">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                BLOG-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th scope="col">#</th>-->
+<!--                <th scope="col">Title</th>-->
+<!--                <th scope="col">Author</th>-->
+<!--                <th scope="col">Date</th>-->
+<!--                <th scope="col">Category</th>-->
+<!--                <th scope="col">Edit</th>-->
+<!--                <th scope="col">Delete</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="blog,stt: ${blogList.content}">-->
+
+<!--                <th scope="row" th:text="${stt.count+ blogList.number*blogList.size}"></th>-->
+<!--                <td><a th:href="@{/show-detail/__${blog.id}__}" th:text="${blog.title}">-->
+<!--                </a></td>-->
+<!--                <td th:text="${blog.author}"></td>-->
+<!--                <td th:text="${blog.date}"></td>-->
+<!--                <td th:text="${blog.category.name}"></td>-->
+<!--                <td><a th:href="@{/show-edit-form/__${blog.id}__}">Edit</a></td>-->
+<!--                <td>-->
+<!--                    <button type="button" th:attr="onclick=|getBlogId('${blog.id}','${blog.title}')|"-->
+<!--                            class="btn btn-primary"-->
+<!--                            data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+<!--                        Delete-->
+<!--                    </button>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <a th:href="@{/show-list(page=${blogList.number +1 })}" th:if="${blogList.hasNext()}">-->
+<!--                Next-->
+<!--            </a>-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->

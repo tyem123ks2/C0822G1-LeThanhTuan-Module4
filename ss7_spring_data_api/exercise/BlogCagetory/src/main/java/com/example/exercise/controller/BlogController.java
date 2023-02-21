@@ -39,11 +39,19 @@ public class BlogController {
             model.addAttribute("blogPage", blogPage);
             model.addAttribute("title", titleSearch);
         }
-        model.addAttribute("listCategory", cagetoryService.showAllCategory());
+        model.addAttribute("categoryList", cagetoryService.showAllCategory());
         model.addAttribute("blog", new Blog());
         return "list";
     }
 
+    @GetMapping(value = "/show-list/{categoryId}")
+    public String findBlogByCategory(Model model,@PathVariable("categoryId") int id, @PageableDefault(size = 2) Pageable pageable) {
+        Page<Blog> blogList = blogService.findBlogByCategory(id, pageable);
+        model.addAttribute("blogList", blogList);
+        Blog blog = new Blog();
+        model.addAttribute("blog", blog);
+        return "blog/list";
+    }
     @GetMapping(value = "/detail/{id}")
     public String showDetail(Model model, @PathVariable("id") int id) {
         Optional<Blog> blog = blogService.findById(id);

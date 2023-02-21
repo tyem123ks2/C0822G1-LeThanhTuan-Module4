@@ -68,6 +68,6 @@ public class CategoryService implements ICagetoryService {
 
     @Override
     public Page<Category> findByNameCategory(String name, Pageable pageable) {
-        return cagetoryRepository.findByNameCagetory(name, pageable);
-    }
+        return cagetoryRepository.findByNameCategoryy(name, pageable);}
+
 }

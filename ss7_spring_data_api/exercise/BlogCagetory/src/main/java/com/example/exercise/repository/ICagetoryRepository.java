@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ICagetoryRepository extends JpaRepository<Category, Integer>{
     Page<Category> findByName(String name);
-    Page<Category> findByNameCagetory(String name, Pageable pageable);
+
+    Page<Category> findByNameCategoryy(String name, Pageable pageable);
+//    Page<Category> findByNameCategory(String name, Pageable pageable);
 }

@@ -13,6 +13,8 @@ public interface IBlogRepository extends JpaRepository<Blog, Integer> {
 
     Page<Blog> findByTitleContaining(String title, Pageable pageable);
 
+    Page<Blog> findBlogById(int id, Pageable pageable);
+
 
 //    @Query(value = "select * from Blog where title", nativeQuery = true)
 //    List<Blog> sreach(@Param("title") String title);

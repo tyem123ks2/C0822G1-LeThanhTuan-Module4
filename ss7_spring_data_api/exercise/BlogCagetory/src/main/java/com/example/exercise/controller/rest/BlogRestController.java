@@ -4,6 +4,7 @@ import com.example.exercise.model.Blog;
 import com.example.exercise.service.IBlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,5 @@ public class BlogRestController {
         }
         return new ResponseEntity<>(blog, HttpStatus.OK);
     }
-
 
 }
