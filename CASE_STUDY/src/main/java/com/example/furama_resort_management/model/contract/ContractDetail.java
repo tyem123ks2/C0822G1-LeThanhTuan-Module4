@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class ContractDetail {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToOne
@@ -15,16 +15,12 @@ public class ContractDetail {
     @JoinColumn(referencedColumnName = "id")
     private AttachFacility attachFacility;
 
-    private int quantity;
+    private Integer quantity;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
 
     public ContractDetail() {
-    }
-
-    public ContractDetail(int id, Contract contract, AttachFacility attachFacility, int quantity) {
-        this.id = id;
-        this.contract = contract;
-        this.attachFacility = attachFacility;
-        this.quantity = quantity;
     }
 
     public int getId() {
@@ -51,11 +47,19 @@ public class ContractDetail {
         this.attachFacility = attachFacility;
     }
 
-    public int getQuantity() {
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 }

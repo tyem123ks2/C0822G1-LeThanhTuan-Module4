@@ -7,9 +7,9 @@ import java.util.List;
 public class AttachFacility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String name;
-    private double cost;
+    private Double cost;
     private String unit;
     private String status;
 
@@ -17,25 +17,16 @@ public class AttachFacility {
     private boolean isDeleted;
 
     @OneToMany(mappedBy = "attachFacility")
-    private List<Contract> contractList;
+    private List<ContractDetail> contractDetailList;
 
     public AttachFacility() {
     }
 
-    public AttachFacility(int id, String name, double cost, String unit, String status, List<Contract> contractList) {
-        this.id = id;
-        this.name = name;
-        this.cost = cost;
-        this.unit = unit;
-        this.status = status;
-        this.contractList = contractList;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,11 +38,11 @@ public class AttachFacility {
         this.name = name;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
@@ -71,11 +62,19 @@ public class AttachFacility {
         this.status = status;
     }
 
-    public List<Contract> getContractList() {
-        return contractList;
+    public boolean isDeleted() {
+        return isDeleted;
     }
 
-    public void setContractList(List<Contract> contractList) {
-        this.contractList = contractList;
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public List<ContractDetail> getContractDetailList() {
+        return contractDetailList;
+    }
+
+    public void setContractDetailList(List<ContractDetail> contractDetailList) {
+        this.contractDetailList = contractDetailList;
     }
 }

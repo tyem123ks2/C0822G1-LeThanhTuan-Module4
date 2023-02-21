@@ -1,280 +1,362 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Customer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        #footer {
+            background-color: #264F1A;
+            height: 50px;
+            margin-bottom: 1px;
+            position: relative;
+            padding: 10px 50px;
+            justify-content: center;
+            color: white;
+        }
+
+        #header {
+            height: 90px;
+            margin-bottom: 20px;
+        }
+
+        body {
+            font-family: sans-serif;
+            font-size: 90%;
+        }
+    </style>
 </head>
-<svg style="display: none;">
-    <symbol id="bootstrap" viewBox="0 0 118 94">
-        <title>Bootstrap</title>
-        <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066
-              20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951
-              11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51
-              94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577
-              2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-
-              11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.
-              508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.
-              437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317
-              46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 1
-              0.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0
-              10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
-    </symbol>
-</svg>
-<!--<%&#45;&#45;Header&#45;&#45;%>-->
-<!--<c:import url="/include/header.jsp"></c:import>-->
-<!--<%&#45;&#45;Body&#45;&#45;%>-->
-<div class="row">
-    <nav class="navbar navbar-light" style="background-color: teal">
-        <div class="container-fluid" style="position: relative">
-            <a class="navbar-brand"
-               href="http://localhost:63342/furama_resort_management/furama_resort_management.main/templates/home/home.html?_ijt=efte7kimp4li9cc14flr234ug1&_ij_reload=RELOAD_ON_SAVE">Home</a>
-            <button class="btn btn-light" style="position: absolute;left: 100px" data-bs-toggle="modal"
-                    data-bs-target="#addmodal">Thêm Khách Hàng
+<body>
+<!--------------------------------------------------------header---------------------------------------------------------------->
+<div class="insert" th:insert="~{/home/header::header}"></div>
+<!-------------------------------------------------display customer list------------------------------------------------------->
+<div class=" col-lg-9>
+<div class=" row>
+    <h2 th:text="${mess}"></h2>
+    <h4>Customer list</h4>
+</div>
+<div class="row justify-content-center">
+    <form class="d-flex" th:action="@{/customer/show-list}" method="get">
+        <div class="col-lg-3">
+            <input class="form-control me-2" name="searchName" type="search" placeholder="Search by name"
+                   aria-label="Search">
+        </div>
+        <div class="col-lg-3">
+            <input class="form-control me-2" name="searchEmail" type="search" placeholder="Search by email"
+                   aria-label="Search">
+        </div>
+        <div class="col-lg-3">
+            <select name="searchCustomerTypeId" class="form-select"
+                    aria-label="Example select with button addon" >
+                <option value="">Select customer type</option>
+                <option th:each="customerType: ${customerTypeList}" th:value="${customerType.id}"
+                        th:text="${customerType.name}"></option>
+            </select>
+            <!--            <input class="form-control me-2"  type="search"-->
+            <!--                   placeholder="Search by phone number" aria-label="Search">-->
+        </div>
+        <div class="col-lg-3">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+    </form>
+    <div class="col-lg-4">
+        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                data-bs-target="#addCustomer">
+            <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
+        </button>
+    </div>
+    <div class="col-lg-3">
+        <p style="color: red" id="message"></p>
+    </div>
+</div>
+<table class="table table-striped table-bordered" id="tableStudent">
+    <thead>
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Name</th>
+        <th scope="col">Birthday</th>
+        <th scope="col">Gender</th>
+        <th scope="col">ID card</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Email</th>
+        <th scope="col">Customer type</th>
+        <th scope="col">Address</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="customer ,stt : ${customerList.content}">
+        <td th:text="${stt.count + customerList.number*customerList.size}"></td>
+        <td th:text="${customer.name}"></td>
+        <td th:text="${customer.dateOfBirth}"></td>
+        <td th:if="${customer.gender}==0">Nữ</td>
+        <td th:if="${customer.gender}==1">Nam</td>
+        <td th:text="${customer.idCard}"></td>
+        <td th:text="${customer.phoneNumber}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.customerType.name}"></td>
+        <td th:text="${customer.address}"></td>
+        <td>
+            <button th:attr="onclick=|getCustomerInfo('${customer.id}','${customer.name}','${customer.dateOfBirth}','${customer.gender}','${customer.idCard}','${customer.phoneNumber}','${customer.email}','${customer.customerType.id}','${customer.address}')|"
+                    type="button" class="btn btn-light" data-bs-toggle="modal"
+                    data-bs-target="#editCustomer">
+                <img src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/null/external-create-social-media-interface-anggara-basic-outline-anggara-putra.png"/>
             </button>
-            <form class="d-flex" action="/customer?action=sreach" method="post">
-                <input class="form-control me-2" type="search" placeholder="Search Name" aria-label="Search" name="name">
-                <input class="form-control me-2" type="search" placeholder="Search Phone Number" aria-label="Search" name="phone_number">
-                <input class="form-control me-2" type="search" placeholder="Search Address" aria-label="Search" name="address">
-                <button class="btn btn-outline-danger" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+        </td>
+        <td>
+            <button th:attr="onclick=|getCustomerId('${customer.id}','${customer.name}')|"
+                    type="button"
+                    class="btn btn-light" data-bs-toggle="modal"
+                    data-bs-target="#deleteCustomer">
+                <img src="https://img.icons8.com/ios-glyphs/30/null/trash--v1.png"/>
+            </button>
+        </td>
+    </tr>
+    <a th:href="@{/customer/show-list(page=${customerList.number})}" th:if="${customerList.hasPrevious()}"
+       style="text-decoration: none">Back</a>
+    <a th:href="@{/customer/show-list(page=${customerList.number+1})}" th:if="${customerList.hasNext()}"
+       style="text-decoration: none">Next</a>
+    </tbody>
+</table>
 </div>
-<c:if test="${list.size() == 0}">
-    <br> <br>
-    <center>
-        <h3>Không tìm thấy khách hàng tên: " ${find} " <i class="fa-sharp fa-solid fa-magnifying-glass"></i></h3>
-    </center>
-
-</c:if>
-<c:if test="${list.size() != 0}">
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">STT</th>
-            <th scope="col">ID</th>
-            <th scope="col">Mã MB</th>
-            <th scope="col">Diện tích</th>
-            <th scope="col">Trạng thái</th>
-            <th scope="col">Tầng</th>
-            <th scope="col">Loại văn phòng</th>
-            <th scope="col">Giá cho thuê</th>
-            <th scope="col">Ngày bắt đầu</th>
-            <th scope="col">Ngày kết thúc</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="ground" items="${list}" varStatus="status">
-            <tr scope="row">
-                <td>${status.count}</td>
-                <td>${ground.id_ground}</td>
-                <td>${ground.size}</td>
-                <td>${ground.status_id}</td>
-                <td>${ground.floor_id}</td>
-                <td>${ground.office_id}</td>
-                <td>${ground.price}</td>
-                <td>${ground.other}</td>
-                <td>${ground.start_date}</td>
-                <td>${ground.end_date}</td>
-
-                <td>
-                    <button class="btn btn-danger " onclick="deleteGround('${ground.id}','${ground.id.ground}')"
-                            data-bs-toggle="modal" data-bs-target="#deletemodal"><i class="fa-sharp fa-solid fa-pen " style="color: aliceblue; font-size: 13px">DELETE</i>
-                    </button>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-</c:if>
-<%--footer--%>
-<c:import url="/include/footer.jsp"></c:import>
-<%--modal thêm mới--%>
-<div class="modal" tabindex="-1" id="addmodal">
+</div>
+<div class="row " id="footer">@copyright by me</div>
+<!------------------------------------------------------------add modal-------------------------------------------------------->
+<div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--    <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCustomer").modal("show")</script>-->
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Thêm mới khách hàng <i class="fa-sharp fa-solid fa-user"></i></h5>
+                <h5 class="modal-title">Add customer information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="/customer?action=add" method="post">
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Nhập Tên</label>
-                        <div class="col-sm-10">
-                            <input type="text" required pattern="[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,}" class="form-control" name="name">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Ngày Sinh</label>
-                        <div class="col-sm-10">
-                            <input type="date" required class="form-control" name="birthday">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Giới Tính</label>
-                        <div class="col-sm-10">
-                            <input type="radio" class="radio" checked name="gender" value="true"> Nam &nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="radio" name="gender" value="false"> Nữ
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Mã CMND</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="idcard">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Số Điện Thoại</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="phonenumber">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="email">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Địa Chỉ</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" name="address">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Chọn Kiểu</label>
-                        <div class="col-sm-10">
-                            <select class="form-select" name="typeid">
-                                <c:forEach var="type" items="${typeList}">
-                                    <option value="${type.id}">${type.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary">Xác Nhận</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<%--modal edit--%>
-
-
-<div class="modal" tabindex="-1" id="editmodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Chỉnh sửa thông tin khách hàng <span id="nameForm"></span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/customer?action=edit" method="post">
-                    <div class="mb-3 row">
-                        <input type="hidden" name="id" id="idEdit">
-                        <label class="col-sm-2 col-form-label">Họ Tên</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nameEdit" name="name">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Ngày Sinh</label>
-                        <div class="col-sm-10">
-                            <input type="date" class="form-control" id="birthdayEdit" name="birthday">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Giới Tính</label>
-                        <div class="col-sm-10">
-                            <input type="radio" class="radio" checked name="gender" value="true"> Nam &nbsp;&nbsp;&nbsp;
-                            <input type="radio" class="radio" name="gender" value="false"> Nữ
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Mã CMND</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="idcardEdit" name="idcard">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Số Điện Thoại</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="phoneNumberEdit" name="phonenumber">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="emailEdit" name="email">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Địa Chỉ</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="addressEdit" name="address">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label class="col-sm-2 col-form-label">Chọn Kiểu</label>
-                        <div class="col-sm-10">
-                            <select class="form-select" name="typeid">
-                                <c:forEach var="type" items="${typeList}">
-                                    <option value="${type.id}">${type.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary">Xác Nhận</button>
-                    </div>
-                </form>
-            </div>
-            <%--            <div class="modal-footer">--%>
-            <%--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quit</button>--%>
-            <%--                <button type="button" class="btn btn-primary">Change</button>--%>
-            <%--            </div>--%>
-        </div>
-    </div>
-</div>
-<%--model delete--%>
-<div class="modal" tabindex="-1" id="deletemodal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Xác Nhận Xóa</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/customer?action=delete" method="post">
+            <form th:action="@{/customer/add}" th:object="${customerDto}" method="post">
                 <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa <strong><span style="color: red" id="nameDelete">  </span> ? </strong></p>
-                </div>
-                <input type="hidden" name="id" id="idDelete">
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Xóa</button>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="name">Name</label>
+                        <input type="text" th:field="*{name}"
+                               pattern="^([\p{Lu}][\p{Ll}]{1,8})(\s([\p{Lu}]|[\p{Lu}][\p{Ll}]{1,10})){0,5}$"
+                               class="form-control" name="name" required>
+                        <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                            <p>Incorrect name</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="dateOfBirth">Birthday</label>
+                        <input type="date" th:field="*{dateOfBirth}"
+                               class="form-control"
+                               name="dateOfBirth " required>
+                        <div class="text text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">
+                            <p>Incorrect date of birth</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="gender">Gender</label>
+                        <select th:field="*{gender}" class="form-select"
+                                aria-label="Example select with button addon" name="gender">
+                            <option th:value="0" th:text="Nữ"></option>
+                            <option th:value="1" th:text="Nam"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="idCard">ID card</label>
+                        <input type="text" th:field="*{idCard}" class="form-control"
+                               name="idCard"
+                               required>
+                        <div class="text text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">
+                            <p>Incorrect ID card</p>
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="phoneNumber">Phone number</label>
+                        <input type="text" pattern="(090\d{7})|(091\d{7})|(\(84\)\+90\d{7})|(\(84\)\+91\d{7})"
+                               class="form-control" name="phoneNumber" th:field="*{phoneNumber}" required>
+                        <div class="text text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">
+                            <p>Incorrect phone number</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="email">Email</label>
+                        <input type="text" th:field="*{email}"
+                               pattern="[a-zA-Z]\w+@gmail\.com"
+                               class="form-control" name="email"
+                               required>
+                        <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            <p>Incorrect email</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Customer type</label>
+                        <select th:field="*{customerType}" class="form-select" id="inputGroupSelect03"
+                                aria-label="Example select with button addon" name="customerTypeId">
+                            <option th:each="customerType: ${customerTypeList}" th:value="${customerType.id}"
+                                    th:text="${customerType.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" th:for="address">Address</label>
+                        <input type="text" th:field="*{address}" class="form-control"
+                               name="address"
+                               required>
+                        <div class="text text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">
+                            <p>Incorrect Class Name</p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="Submit" class="btn btn-danger">Submit</button>
+                    </div>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
-</body>
-<script>
+</div>
+<!---------------------------------------------------------edit modal----------------------------------------------->
+<div class="modal fade" id="editCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit customer information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/customer/edit}" th:object="${customerDto}" method="post">
+                <div class="modal-body">
+                    <input type="text" id="id" th:field="*{id}" name="id" hidden>
+                    <div class="mb-3">
+                        <label class="form-label">New name</label>
+                        <input type="text" class="form-control"  pattern="^([\p{Lu}][\p{Ll}]{1,8})(\s([\p{Lu}]|[\p{Lu}][\p{Ll}]{1,10})){0,5}$" th:field="*{name}" name="newName" id="newName">
+                        <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                            <p>Incorrect name</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New birthday</label>
+                        <input type="date" class="form-control" th:field="*{dateOfBirth}" name="newBirthday" id="newBirthday">
+                        <div class="text text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">
+                            <p>Incorrect date of birth</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New gender</label>
+                        <select th:field="*{gender}" class="form-select"
+                                aria-label="Example select with button addon" name="newGender" id="newGender">
+                            <option th:value="0" th:text="Female"></option>
+                            <option th:value="1" th:text="Male"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New ID card</label>
+                        <input type="text" class="form-control" th:field="*{idCard}" name="newIdCard" id="newIdCard">
+                        <div class="text text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}">
+                            <p>Incorrect ID card</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New phone number</label>
+                        <input type="text" class="form-control" pattern="(090\d{7})|(091\d{7})|(\(84\)\+90\d{7})|(\(84\)\+91\d{7})"  th:field="*{phoneNumber}" name="newPhoneNumber" id="newPhoneNumber">
+                        <div class="text text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}">
+                            <p>Incorrect phone number</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New email</label>
+                        <input type="text" attern="[a-zA-Z]\w+@gmail\.com" class="form-control" th:field="*{email}" name="newEmail" id="newEmail">
+                        <div class="text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                            <p>Incorrect email</p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New customer type</label>
+                        <select class="form-select" th:field="*{customerType}"
+                                aria-label="Example select with button addon" name="newCustomerType" id="customerType">
+                            <option th:each="customerType: ${customerTypeList}" th:value="${customerType.id}"
+                                    th:text="${customerType.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">New address</label>
+                        <input type="text" class="form-control" th:field="*{address}"  name="newAddress" id="newAddress">
+                        <div class="text text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">
+                            <p>Incorrect Class Name</p>
+                        </div>
+                    </div>
 
-    function deleteGround(id, ground_id) {
-        document.getElementById("idDelete").value = id;
-        document.getElementById("nameDelete").innerText = ground_id;
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!----------------------------------------------------delete modal---------------------------------------------------->
+<div class="modal fade" id="deleteCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete customer information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/customer/delete}" th:object="${customerDto}" method="post">
+                <div class="modal-body">
+                    <input id="deleteId" type="text" th:field="*{id}" name="deleteId" hidden>
+                    <span>Are you sure that you want to delete information of </span><span id="deleteName"> ?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<input id="flag" type="text" th:value="${isModal}" hidden>
+<script>
+    function getCustomerId(id, name) {
+        document.getElementById("deleteId").value = id;
+        document.getElementById("deleteName").innerText = name;
     }
+
+    function getCustomerInfo(id, name, dateOfBirth, gender, idCard, phoneNumber, email, customerTypeId,address) {
+        document.getElementById("id").value = id
+        document.getElementById("newName").value = name;
+        document.getElementById("newBirthday").value = dateOfBirth;
+        document.getElementById("newGender").value = gender;
+        document.getElementById("newIdCard").value = idCard;
+        document.getElementById("newPhoneNumber").value = phoneNumber;
+        document.getElementById("newEmail").value = email;
+        document.getElementById("customerType").value = customerTypeId;
+        document.getElementById("newAddress").value = address;
+    }
+
+    // show message after delete,add,edit
+    // const queryString = window.location.search;
+    // const urlParams = new URLSearchParams(queryString);
+    // document.getElementById("message").innerText = urlParams.get('message');
+
+
+    // show edit , add modal if have error
+    if ($("#flag").val() == "true") {
+        $(document).ready(function () {
+            $('#addCustomer').modal('show');
+            // $("#addCustomer").show();
+        });
+    }
+
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="jquery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!--<script src="datatables/js/jquery.dataTables.min.js"></script>-->
+<!--<script src="datatables/js/dataTables.bootstrap5.min.js"></script>-->
+</body>
 </html>

@@ -9,11 +9,12 @@ import javax.persistence.*;
 @Entity
 public class Contract {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String startDate;
     private String endDate;
-    private double deposit;
+    private Double deposit;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
@@ -36,23 +37,11 @@ public class Contract {
     public Contract() {
     }
 
-    public Contract(int id, String startDate, String endDate, double deposit, Customer customer, Employee employee, Facility facility, boolean isDeleted, ContractDetail contractDetail) {
-        this.id = id;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.deposit = deposit;
-        this.customer = customer;
-        this.employee = employee;
-        this.facility = facility;
-        this.isDeleted = isDeleted;
-        this.contractDetail = contractDetail;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,11 +61,11 @@ public class Contract {
         this.endDate = endDate;
     }
 
-    public double getDeposit() {
+    public Double getDeposit() {
         return deposit;
     }
 
-    public void setDeposit(double deposit) {
+    public void setDeposit(Double deposit) {
         this.deposit = deposit;
     }
 
@@ -110,13 +99,5 @@ public class Contract {
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
-    }
-
-    public ContractDetail getContractDetail() {
-        return contractDetail;
-    }
-
-    public void setContractDetail(ContractDetail contractDetail) {
-        this.contractDetail = contractDetail;
     }
 }

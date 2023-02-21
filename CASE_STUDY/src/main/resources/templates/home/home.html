@@ -33,7 +33,10 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="/templates/customer/list.html" class="nav-link">Customer</a></li>
+            <li class="nav-item">
+                <a class="nav-link"
+                   th:href="@{/customer/show-list}">Customer</a>
+            </li>
             <li class="nav-item"><a href="#" class="nav-link">Employee</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Facility</a></li>
             <li class="nav-item"><a href="#" class="nav-link">About</a></li>
@@ -220,3 +223,4 @@
 </div>
 </body>
 </html>
+

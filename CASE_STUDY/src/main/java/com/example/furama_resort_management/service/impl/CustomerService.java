@@ -3,7 +3,6 @@ package com.example.furama_resort_management.service.impl;
 import com.example.furama_resort_management.model.customer.Customer;
 import com.example.furama_resort_management.repository.ICustomerRepository;
 import com.example.furama_resort_management.service.ICustomerService;
-import org.hibernate.dialect.lock.OptimisticEntityLockException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
