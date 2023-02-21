@@ -4,21 +4,22 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class FacilityType {
+public class RentType {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;
 
-    @OneToMany(mappedBy = "facilityType")
+    @OneToMany(mappedBy = "rentType")
     private List<Facility> facilityList;
 
-    public FacilityType() {
+    public RentType() {
     }
 
-    public FacilityType(int id, String name, boolean isDeleted, List<Facility> facilityList) {
+    public RentType(int id, String name, boolean isDeleted, List<Facility> facilityList) {
         this.id = id;
         this.name = name;
         this.isDeleted = isDeleted;
