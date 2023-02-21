@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<svg style="display: none;">
+    <symbol id="bootstrap" viewBox="0 0 118 94">
+        <title>Bootstrap</title>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M24.509 0c-6.733 0-11.715 5.893-11.492 12.284.214 6.14-.064 14.092-2.066
+              20.577C8.943 39.365 5.547 43.485 0 44.014v5.972c5.547.529 8.943 4.649 10.951
+              11.153 2.002 6.485 2.28 14.437 2.066 20.577C12.794 88.106 17.776 94 24.51
+              94H93.5c6.733 0 11.714-5.893 11.491-12.284-.214-6.14.064-14.092 2.066-20.577
+              2.009-6.504 5.396-10.624 10.943-11.153v-5.972c-5.547-.529-8.934-4.649-10.943-
+              11.153-2.002-6.484-2.28-14.437-2.066-20.577C105.214 5.894 100.233 0 93.5 0H24.
+              508zM80 57.863C80 66.663 73.436 72 62.543 72H44a2 2 0 01-2-2V24a2 2 0 012-2h18.
+              437c9.083 0 15.044 4.92 15.044 12.474 0 5.302-4.01 10.049-9.119 10.88v.277C75.317
+              46.394 80 51.21 80 57.863zM60.521 28.34H49.948v14.934h8.905c6.884 0 10.68-2.772 1
+              0.68-7.727 0-4.643-3.264-7.207-9.012-7.207zM49.948 49.2v16.458H60.91c7.167 0
+              10.964-2.876 10.964-8.281 0-5.406-3.903-8.178-11.425-8.178H49.948z"></path>
+    </symbol>
+</svg>
+<!--<%&#45;&#45;Header&#45;&#45;%>-->
+<!--<c:import url="/include/header.jsp"></c:import>-->
+<!--<%&#45;&#45;Body&#45;&#45;%>-->
+<div class="row">
+    <nav class="navbar navbar-light" style="background-color: teal">
+        <div class="container-fluid" style="position: relative">
+            <a class="navbar-brand"
+               href="http://localhost:63342/furama_resort_management/furama_resort_management.main/templates/home/home.html?_ijt=efte7kimp4li9cc14flr234ug1&_ij_reload=RELOAD_ON_SAVE">Home</a>
+            <button class="btn btn-light" style="position: absolute;left: 100px" data-bs-toggle="modal"
+                    data-bs-target="#addmodal">Thêm Khách Hàng
+            </button>
+            <form class="d-flex" action="/customer?action=sreach" method="post">
+                <input class="form-control me-2" type="search" placeholder="Search Name" aria-label="Search" name="name">
+                <input class="form-control me-2" type="search" placeholder="Search Phone Number" aria-label="Search" name="phone_number">
+                <input class="form-control me-2" type="search" placeholder="Search Address" aria-label="Search" name="address">
+                <button class="btn btn-outline-danger" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
+<c:if test="${list.size() == 0}">
+    <br> <br>
+    <center>
+        <h3>Không tìm thấy khách hàng tên: " ${find} " <i class="fa-sharp fa-solid fa-magnifying-glass"></i></h3>
+    </center>
+
+</c:if>
+<c:if test="${list.size() != 0}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">ID</th>
+            <th scope="col">Mã MB</th>
+            <th scope="col">Diện tích</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col">Tầng</th>
+            <th scope="col">Loại văn phòng</th>
+            <th scope="col">Giá cho thuê</th>
+            <th scope="col">Ngày bắt đầu</th>
+            <th scope="col">Ngày kết thúc</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="ground" items="${list}" varStatus="status">
+            <tr scope="row">
+                <td>${status.count}</td>
+                <td>${ground.id_ground}</td>
+                <td>${ground.size}</td>
+                <td>${ground.status_id}</td>
+                <td>${ground.floor_id}</td>
+                <td>${ground.office_id}</td>
+                <td>${ground.price}</td>
+                <td>${ground.other}</td>
+                <td>${ground.start_date}</td>
+                <td>${ground.end_date}</td>
+
+                <td>
+                    <button class="btn btn-danger " onclick="deleteGround('${ground.id}','${ground.id.ground}')"
+                            data-bs-toggle="modal" data-bs-target="#deletemodal"><i class="fa-sharp fa-solid fa-pen " style="color: aliceblue; font-size: 13px">DELETE</i>
+                    </button>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
+<%--footer--%>
+<c:import url="/include/footer.jsp"></c:import>
+<%--modal thêm mới--%>
+<div class="modal" tabindex="-1" id="addmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới khách hàng <i class="fa-sharp fa-solid fa-user"></i></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/customer?action=add" method="post">
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Nhập Tên</label>
+                        <div class="col-sm-10">
+                            <input type="text" required pattern="[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+)((\s{1}[a-vxyỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ]+){1,}" class="form-control" name="name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Ngày Sinh</label>
+                        <div class="col-sm-10">
+                            <input type="date" required class="form-control" name="birthday">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Giới Tính</label>
+                        <div class="col-sm-10">
+                            <input type="radio" class="radio" checked name="gender" value="true"> Nam &nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="radio" name="gender" value="false"> Nữ
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Mã CMND</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="idcard">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Số Điện Thoại</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="phonenumber">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="email">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Địa Chỉ</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="address">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Chọn Kiểu</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" name="typeid">
+                                <c:forEach var="type" items="${typeList}">
+                                    <option value="${type.id}">${type.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%--modal edit--%>
+
+
+<div class="modal" tabindex="-1" id="editmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa thông tin khách hàng <span id="nameForm"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/customer?action=edit" method="post">
+                    <div class="mb-3 row">
+                        <input type="hidden" name="id" id="idEdit">
+                        <label class="col-sm-2 col-form-label">Họ Tên</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nameEdit" name="name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Ngày Sinh</label>
+                        <div class="col-sm-10">
+                            <input type="date" class="form-control" id="birthdayEdit" name="birthday">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Giới Tính</label>
+                        <div class="col-sm-10">
+                            <input type="radio" class="radio" checked name="gender" value="true"> Nam &nbsp;&nbsp;&nbsp;
+                            <input type="radio" class="radio" name="gender" value="false"> Nữ
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Mã CMND</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="idcardEdit" name="idcard">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Số Điện Thoại</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="phoneNumberEdit" name="phonenumber">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="emailEdit" name="email">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Địa Chỉ</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="addressEdit" name="address">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-sm-2 col-form-label">Chọn Kiểu</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" name="typeid">
+                                <c:forEach var="type" items="${typeList}">
+                                    <option value="${type.id}">${type.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                    </div>
+                </form>
+            </div>
+            <%--            <div class="modal-footer">--%>
+            <%--                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Quit</button>--%>
+            <%--                <button type="button" class="btn btn-primary">Change</button>--%>
+            <%--            </div>--%>
+        </div>
+    </div>
+</div>
+<%--model delete--%>
+<div class="modal" tabindex="-1" id="deletemodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác Nhận Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/customer?action=delete" method="post">
+                <div class="modal-body">
+                    <p>Bạn có chắc chắn muốn xóa <strong><span style="color: red" id="nameDelete">  </span> ? </strong></p>
+                </div>
+                <input type="hidden" name="id" id="idDelete">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Xóa</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+<script>
+
+    function deleteGround(id, ground_id) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = ground_id;
+    }
+</script>
+</html>

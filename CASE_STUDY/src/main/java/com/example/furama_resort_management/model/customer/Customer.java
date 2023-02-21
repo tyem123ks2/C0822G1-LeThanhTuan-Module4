@@ -1,7 +1,5 @@
 package com.example.furama_resort_management.model.customer;
 
-import org.springframework.data.repository.cdi.Eager;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,27 +8,50 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
+    @JoinColumn(name = "customer_type_id", referencedColumnName = "id")
     private CustomerType customerType;
     private String name;
     private String dateOfBirth;
     private boolean gender;
+    @Column(columnDefinition = "varchar(255) unique")
+    private String idCard;
+
+    @Column(columnDefinition = "varchar(255) unique")
     private String phoneNumber;
+
+    @Column(columnDefinition = "varchar(255) unique")
     private String email;
     private String address;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDeleted;
 
     public Customer() {
     }
 
-    public Customer(int id, CustomerType customerType, String name, String dateOfBirth, boolean gender,
-                    String phoneNumber, String email, String address) {
+    public Customer(int id, CustomerType customerType, String name, String dateOfBirth, boolean gender, String idCard, String phoneNumber, String email, String address, boolean isDeleted) {
         this.id = id;
         this.customerType = customerType;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
+        this.idCard = idCard;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
+        this.isDeleted = isDeleted;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     public int getId() {
@@ -96,4 +117,9 @@ public class Customer {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
 }
