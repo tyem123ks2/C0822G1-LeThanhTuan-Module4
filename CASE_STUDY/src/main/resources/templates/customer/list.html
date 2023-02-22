@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Customer</title>
@@ -57,7 +57,7 @@
 <!--    <div class="insert" th:insert="~{/home/header::header}"></div>-->
     <!-------------------------------------------------display customer list------------------------------------------------------->
     <div class=" col-lg-9>
-<div class=" row>
+        <div class=" row>
         <h2 th:text="${mess}"></h2>
         <h4>Customer list</h4>
     </div>
@@ -147,8 +147,8 @@
         </tbody>
     </table>
 </div>
-</div>
-<!------------------------------------------------------------add modal-------------------------------------------------------->
+
+<!--add modal--->
 <div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <!--    <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCustomer").modal("show")</script>-->
     <div class="modal-dialog">
@@ -242,7 +242,7 @@
     </div>
 </div>
 </div>
-<!---------------------------------------------------------edit modal----------------------------------------------->
+<!---edit modal--->
 <div class="modal fade" id="editCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
