@@ -54,7 +54,7 @@
         </ul>
     </header>
     <!--------------------------------------------------------header---------------------------------------------------------------->
-    <div class="insert" th:insert="~{/home/header::header}"></div>
+<!--    <div class="insert" th:insert="~{/home/header::header}"></div>-->
     <!-------------------------------------------------display customer list------------------------------------------------------->
     <div class=" col-lg-9>
 <div class=" row>
@@ -140,9 +140,9 @@
                 </button>
             </td>
         </tr>
-        <a th:href="@{/customer/show-list(page=${customerList.number-1})}" th:if="${customerList.hasPrevious()}"
+        <a th:href="@{/customer/show-list(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}"
            style="text-decoration: none">Back</a>
-        <a th:href="@{/customer/show-list(page=${customerList.number+1})}" th:if="${customerList.hasNext()}"
+        <a th:href="@{/customer/show-list(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}"
            style="text-decoration: none">Next</a>
         </tbody>
     </table>
@@ -375,13 +375,13 @@
     // document.getElementById("message").innerText = urlParams.get('message');
 
 
-    // show edit , add modal if have error
-    if ($("#flag").val() == "true") {
-        $(document).ready(function () {
-            $('#addCustomer').modal('show');
-            // $("#addCustomer").show();
-        });
-    }
+    // // show edit , add modal if have error
+    // if ($("#flag").val() == "true") {
+    //     $(document).ready(function () {
+    //         $('#addCustomer').modal('show');
+    //         // $("#addCustomer").show();
+    //     });
+    // }
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
