@@ -5,12 +5,13 @@ import javax.persistence.*;
 @Entity
 public class Facility {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column(columnDefinition = "varchar(255) unique")
     private String name;
-    private double area;
-    private double cost;
-    private int maxPeople;
+    private Double area;
+    private Double cost;
+    private Integer maxPeople;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
@@ -22,37 +23,20 @@ public class Facility {
 
     private String standardRoom;
     private String descriptionOtherConvenience;
-    private double poolArea;
-    private int numberOfFloor;
+    private Double poolArea;
+    private Integer numberOfFloor;
     private String facilityFree;
-
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;
 
     public Facility() {
     }
 
-    public Facility(int id, String name, Double area, Double cost, int maxPeople, RentType rentType, FacilityType facilityType, String standardRoom, String descriptionOtherConvenience, Double poolArea, int numberOfFloor, String facilityFree, boolean isDeleted) {
-        this.id = id;
-        this.name = name;
-        this.area = area;
-        this.cost = cost;
-        this.maxPeople = maxPeople;
-        this.rentType = rentType;
-        this.facilityType = facilityType;
-        this.standardRoom = standardRoom;
-        this.descriptionOtherConvenience = descriptionOtherConvenience;
-        this.poolArea = poolArea;
-        this.numberOfFloor = numberOfFloor;
-        this.facilityFree = facilityFree;
-        this.isDeleted = isDeleted;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -80,11 +64,11 @@ public class Facility {
         this.cost = cost;
     }
 
-    public int getMaxPeople() {
+    public Integer getMaxPeople() {
         return maxPeople;
     }
 
-    public void setMaxPeople(int maxPeople) {
+    public void setMaxPeople(Integer maxPeople) {
         this.maxPeople = maxPeople;
     }
 
@@ -128,11 +112,11 @@ public class Facility {
         this.poolArea = poolArea;
     }
 
-    public int getNumberOfFloor() {
+    public Integer getNumberOfFloor() {
         return numberOfFloor;
     }
 
-    public void setNumberOfFloor(int numberOfFloor) {
+    public void setNumberOfFloor(Integer numberOfFloor) {
         this.numberOfFloor = numberOfFloor;
     }
 

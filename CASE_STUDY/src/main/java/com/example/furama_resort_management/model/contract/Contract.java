@@ -34,6 +34,24 @@ public class Contract {
     @OneToOne(mappedBy = "contract")
     private ContractDetail contractDetail;
 
+    public ContractDetail getContractDetail() {
+        return contractDetail;
+    }
+
+    public void setContractDetail(ContractDetail contractDetail) {
+        this.contractDetail = contractDetail;
+    }
+
+    public String getEditHistory() {
+        return editHistory;
+    }
+
+    public void setEditHistory(String editHistory) {
+        this.editHistory = editHistory;
+    }
+
+    private String editHistory;
+
     public Contract() {
     }
 
@@ -100,4 +118,5 @@ public class Contract {
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
+
 }

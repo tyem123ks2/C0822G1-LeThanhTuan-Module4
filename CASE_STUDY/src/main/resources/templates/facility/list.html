@@ -29,7 +29,7 @@
 </head>
 <body>
 <!------------------------------------------------------header----------------------------------------------------->
-<div class="insert" th:insert="~{/home/header::header}"></div>
+<!--<div class="insert" th:insert="~{/home/header::header}"></div>-->
 
 <!------------------------------------------------display facility list ---------------------------------------------------------->
 <div class="col-lg-9">
@@ -63,7 +63,7 @@
             </button>
         </div>
         <div class="col-lg-3">
-            <p style="color: red" th:text="${mess}"></p>
+            <p style="color: red" th:text="${message}"></p>
         </div>
     </div>
     <div class="row">
@@ -131,7 +131,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add service information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" onclick="location.href='/facility/show-list'" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form th:action="@{/facility/add-facility}" th:object="${facility}" method="post">
                 <div class="modal-body">
@@ -205,7 +205,7 @@
                     </div>
                     <div class="mb-3" id="numberOfFloors">
                         <label class="form-label">Number of floors</label>
-                        <input type="text" th:field="*{numberOfFloor}" class="form-control" name="numberOfFloor9s">
+                        <input type="text" th:field="*{numberOfFloor}" class="form-control" name="numberOfFloors">
                         <div class="text text-danger" th:if="${#fields.hasErrors('numberOfFloor')}"
                              th:errors="*{numberOfFloor}">
                             <p>Incorrect name</p>
@@ -221,7 +221,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="location.href='/facility/show-list'" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Submit</button>
                 </div>
             </form>
@@ -235,7 +235,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit service information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" onclick="location.href='/facility/show-list'" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="/facility/edit-facility" th:object="${facility}" method="post">
                 <div class="modal-body">
@@ -325,7 +325,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="location.href='/facility/show-list'" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Submit</button>
                 </div>
             </form>
@@ -355,8 +355,24 @@
         </div>
     </div>
 </div>
-
+<input id="flag" type="text" th:value="${isModal}" hidden>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script src="jquery/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
+    // bootstrap modal reset to previous content on close
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    })
+
+    $(document).ready(function () {
+        if ($("#flag").val() == "true") {
+            $('#addService').modal('show');
+        }
+    })
+
     function getFacilityId(id, name) {
         document.getElementById("deleteId").value = id;
         document.getElementById("deleteName").innerText = name;

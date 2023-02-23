@@ -2,7 +2,7 @@ package com.example.furama_resort_management.service.impl;
 
 import com.example.furama_resort_management.model.customer.CustomerType;
 import com.example.furama_resort_management.repository.ICustomerTypeRepository;
-import com.example.furama_resort_management.service.ICustomerTypeService;
+import com.example.furama_resort_management.service.customer.ICustomerTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

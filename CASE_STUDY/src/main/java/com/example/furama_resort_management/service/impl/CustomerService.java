@@ -2,12 +2,14 @@ package com.example.furama_resort_management.service.impl;
 
 import com.example.furama_resort_management.model.customer.Customer;
 import com.example.furama_resort_management.repository.ICustomerRepository;
-import com.example.furama_resort_management.service.ICustomerService;
+import com.example.furama_resort_management.service.customer.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CustomerService implements ICustomerService {
@@ -16,12 +18,12 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository customerRepository;
 
     @Override
-    public Page<Customer> sreachName(String name, String email, int customerTypeId, Pageable pageable) {
+    public Page<Customer> searchName(String name, String email, int customerTypeId, Pageable pageable) {
         return customerRepository.searchName(name, email, customerTypeId, pageable);
     }
 
     @Override
-    public Page<Customer> sreachName(String name, String email, Pageable pageable) {
+    public Page<Customer> searchName(String name, String email, Pageable pageable) {
         return customerRepository.searchName(name, email, pageable);
     }
 
@@ -55,4 +57,11 @@ public class CustomerService implements ICustomerService {
     public Customer findById(int id) {
         return customerRepository.findById(id).get();
     }
+
+    @Override
+    public List<Customer> getAllCustomer() {
+        return customerRepository.findAll();
+    }
+
+
 }

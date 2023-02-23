@@ -1,4 +1,4 @@
-package com.example.furama_resort_management.service;
+package com.example.furama_resort_management.service.facility;
 
 import com.example.furama_resort_management.model.facility.RentType;
 

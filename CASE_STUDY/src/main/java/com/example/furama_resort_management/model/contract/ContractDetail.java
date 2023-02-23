@@ -11,7 +11,7 @@ public class ContractDetail {
     @OneToOne
     private Contract contract;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private AttachFacility attachFacility;
 
@@ -21,6 +21,14 @@ public class ContractDetail {
     private boolean isDeleted;
 
     public ContractDetail() {
+    }
+
+    public ContractDetail(int id, Contract contract, AttachFacility attachFacility, Integer quantity, boolean isDeleted) {
+        this.id = id;
+        this.contract = contract;
+        this.attachFacility = attachFacility;
+        this.quantity = quantity;
+        this.isDeleted = isDeleted;
     }
 
     public int getId() {

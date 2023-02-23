@@ -12,6 +12,11 @@ public class Customer {
     private CustomerType customerType;
     private String name;
     private String dateOfBirth;
+
+    public int getGender() {
+        return gender;
+    }
+
     private int gender;
     @Column(columnDefinition = "varchar(255) unique")
     private String idCard;

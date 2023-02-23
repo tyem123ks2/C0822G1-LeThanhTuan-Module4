@@ -3,11 +3,11 @@ package com.example.furama_resort_management.controller;
 import com.example.furama_resort_management.dto.CustomerDto;
 import com.example.furama_resort_management.model.customer.Customer;
 import com.example.furama_resort_management.model.customer.CustomerType;
-import com.example.furama_resort_management.repository.ICustomerRepository;
-import com.example.furama_resort_management.service.ICustomerService;
-import com.example.furama_resort_management.service.ICustomerTypeService;
+import com.example.furama_resort_management.service.customer.ICustomerService;
+import com.example.furama_resort_management.service.customer.ICustomerTypeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,22 +26,22 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/customer")
 public class CustomerController {
+
     @Autowired
     private ICustomerService customerService;
-
     @Autowired
     private ICustomerTypeService customerTypeService;
 
     @GetMapping(value = "/show-list")
-    public String showList(Model model, @RequestParam(value = "sreachName", defaultValue = "") String name,
-                           @RequestParam(value = "sreachEmail", defaultValue = "") String email,
+    public String showList(Model model, @RequestParam(value = "searchName", defaultValue = "") String name,
+                           @RequestParam(value = "searchEmail", defaultValue = "") String email,
                            @RequestParam(value = "searchCustomerTypeId", defaultValue = "-1") int customerTypeId,
                            @PageableDefault(size = 5) Pageable pageable) {
         Page<Customer> customerList;
         if (customerTypeId == -1) {
-            customerList = customerService.sreachName(name, email, pageable);
+            customerList = customerService.searchName(name, email, pageable);
         } else {
-            customerList = customerService.sreachName(name, email, customerTypeId, pageable);
+            customerList = customerService.searchName(name, email, customerTypeId, pageable);
         }
         CustomerDto customerDto = new CustomerDto();
         List<CustomerType> customerTypeList = customerTypeService.getAllCustomerType();
@@ -55,7 +55,7 @@ public class CustomerController {
     public String addNewCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             Pageable pageable = null;
-            Page<Customer> customerList = customerService.sreachName("", "", pageable);
+            Page<Customer> customerList = customerService.searchName("", "", pageable);
             List<CustomerType> customerTypeList = customerTypeService.getAllCustomerType();
             boolean isModal = true;
             model.addAttribute("isModal", isModal);
@@ -82,7 +82,7 @@ public class CustomerController {
     public String editCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             Pageable pageable = null;
-            Page<Customer> customerList = customerService.sreachName("", "", pageable);
+            Page<Customer> customerList = customerService.searchName("", "", pageable);
             List<CustomerType> customerTypeList = customerTypeService.getAllCustomerType();
             boolean isModal = true;
             model.addAttribute("isModal", isModal);
