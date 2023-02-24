@@ -30,116 +30,113 @@
 </head>
 <body>
 
-<div class="insert" th:insert="~{/home/header::header}"></div>
+<div class="container">
+    <div class="insert" th:insert="~{/home/header::header}"></div>
+</div>
 
 
 <!-------------------------------------------------display customer list------------------------------------------------------->
-
-<div class=" col-lg-9>
+<div class="container">
+    <div class=" col-lg-9>
 <div class=" row>
-    <h2 th:text="${mess}"></h2>
-    <h4>Customer list</h4>
-</div>
-<div class="row justify-content-center">
-
-<!--    SEARCH -->
-    <form class="d-flex" th:action="@{/customer/show-list}" method="get">
-        <div class="col-lg-3">
-            <input class="form-control me-2" name="searchName" type="search" placeholder="Search by name"
-                   aria-label="Search">
-        </div>
-        <div class="col-lg-3">
-            <input class="form-control me-2" name="searchEmail" type="search" placeholder="Search by email"
-                   aria-label="Search">
-        </div>
-        <div class="col-lg-3">
-            <select name="searchCustomerTypeId" class="form-select"
-                    aria-label="Example select with button addon" >
-                <option value="">Select customer type</option>
-                <option th:each="customerType: ${customerTypeList}" th:value="${customerType.id}"
-                        th:text="${customerType.name}"></option>
-            </select>
-<!--            <input class="form-control me-2"  type="search"-->
-<!--                   placeholder="Search by phone number" aria-label="Search">-->
-        </div>
-        <div class="col-lg-3">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-        </div>
-    </form>
-
-<!--    ADD-->
-    <div class="col-lg-4">
-        <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                data-bs-target="#addCustomer">
-            <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
-        </button>
+        <h2 th:text="${mess}"></h2>
+        <h4>Customer list</h4>
     </div>
+    <div class="row justify-content-center">
 
-<!--    END ADD -->
+        <!--    SEARCH -->
+        <form class="d-flex" th:action="@{/customer/show-list}" method="get">
+            <div class="col-lg-3">
+                <input class="form-control me-2" name="searchName" type="search" placeholder="Search by name"
+                       aria-label="Search">
+            </div>
+            <div class="col-lg-3">
+                <input class="form-control me-2" name="searchEmail" type="search" placeholder="Search by email"
+                       aria-label="Search">
+            </div>
+            <div class="col-lg-3">
+                <select name="searchCustomerTypeId" class="form-select"
+                        aria-label="Example select with button addon" >
+                    <option value="">Select customer type</option>
+                    <option th:each="customerType: ${customerTypeList}" th:value="${customerType.id}"
+                            th:text="${customerType.name}"></option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </div>
+        </form>
 
-
-
-<!--    Message -->
-    <div class="col-lg-3">
-        <p style="color: red" id="message"></p>
+        <!--    ADD-->
+        <div class="col-lg-4">
+            <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                    data-bs-target="#addCustomer">
+                <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
+            </button>
+        </div>
+        <!--    Message -->
+        <div class="col-lg-3">
+            <p style="color: red" id="message"></p>
+        </div>
     </div>
+    <!-- LIST  CUSTOMER-->
+    <table class="table table-striped table-bordered" id="tableStudent">
+        <thead>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Name</th>
+            <th scope="col">Birthday</th>
+            <th scope="col">Gender</th>
+            <th scope="col">ID card</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Customer type</th>
+            <th scope="col">Address</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
 
+        <tbody>
+        <tr th:each="customer,stt : ${customerList.content}">
+            <td th:text="${stt.count + customerList.number*customerList.size}"></td>
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.dateOfBirth}"></td>
+            <td th:if="${customer.gender}==0">Nữ</td>
+            <td th:if="${customer.gender}==1">Nam</td>
+            <td th:text="${customer.idCard}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.customerType.name}"></td>
+            <td th:text="${customer.address}"></td>
+            <td>
+                <button th:attr="onclick=|getCustomerInfo('${customer.id}','${customer.name}','${customer.dateOfBirth}','${customer.gender}','${customer.idCard}','${customer.phoneNumber}','${customer.email}','${customer.customerType.id}','${customer.address}')|"
+                        type="button" class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#editCustomer">
+                    <img src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/null/external-create-social-media-interface-anggara-basic-outline-anggara-putra.png"/>
+                </button>
+            </td>
+            <td>
+                <button th:attr="onclick=|getCustomerId('${customer.id}','${customer.name}')|"
+                        type="button"
+                        class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#deleteCustomer">
+                    <img src="https://img.icons8.com/ios-glyphs/30/null/trash--v1.png"/>
+                </button>
+            </td>
+        </tr>
+        <a th:href="@{/customer/show-list(page=${customerList.number-1})}" th:if="${customerList.hasPrevious()}"
+           style="text-decoration: none">Back</a>
+        <a th:href="@{/customer/show-list(page=${customerList.number+1})}" th:if="${customerList.hasNext()}"
+           style="text-decoration: none">Next</a>
+        </tbody>
+    </table>
 </div>
-<!-- LIST  CUSTOMER-->
-<table class="table table-striped table-bordered" id="tableStudent">
-    <thead>
-    <tr>
-        <th scope="col">STT</th>
-        <th scope="col">Name</th>
-        <th scope="col">Birthday</th>
-        <th scope="col">Gender</th>
-        <th scope="col">ID card</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Email</th>
-        <th scope="col">Customer type</th>
-        <th scope="col">Address</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
-    </tr>
-    </thead>
 
-    <tbody>
-    <tr th:each="customer,stt : ${customerList.content}">
-        <td th:text="${stt.count + customerList.number*customerList.size}"></td>
-        <td th:text="${customer.name}"></td>
-        <td th:text="${customer.dateOfBirth}"></td>
-        <td th:if="${customer.gender}==0">Nữ</td>
-        <td th:if="${customer.gender}==1">Nam</td>
-        <td th:text="${customer.idCard}"></td>
-        <td th:text="${customer.phoneNumber}"></td>
-        <td th:text="${customer.email}"></td>
-        <td th:text="${customer.customerType.name}"></td>
-        <td th:text="${customer.address}"></td>
-        <td>
-            <button th:attr="onclick=|getCustomerInfo('${customer.id}','${customer.name}','${customer.dateOfBirth}','${customer.gender}','${customer.idCard}','${customer.phoneNumber}','${customer.email}','${customer.customerType.id}','${customer.address}')|"
-                    type="button" class="btn btn-light" data-bs-toggle="modal"
-                    data-bs-target="#editCustomer">
-                <img src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/null/external-create-social-media-interface-anggara-basic-outline-anggara-putra.png"/>
-            </button>
-        </td>
-        <td>
-            <button th:attr="onclick=|getCustomerId('${customer.id}','${customer.name}')|"
-                    type="button"
-                    class="btn btn-light" data-bs-toggle="modal"
-                    data-bs-target="#deleteCustomer">
-                <img src="https://img.icons8.com/ios-glyphs/30/null/trash--v1.png"/>
-            </button>
-        </td>
-    </tr>
-    <a th:href="@{/customer/show-list(page=${customerList.number-1})}" th:if="${customerList.hasPrevious()}"
-       style="text-decoration: none">Back</a>
-    <a th:href="@{/customer/show-list(page=${customerList.number+1})}" th:if="${customerList.hasNext()}"
-       style="text-decoration: none">Next</a>
-    </tbody>
-</table>
+
+<div class="container">
+    <div class="insert" th:insert="~{/home/footer::footer}"></div>
 </div>
-</div>
-<div class="row " id="footer">@copyright by me</div>
 <!------------------------------------------------------------add modal-------------------------------------------------------->
 <div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <!--    <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCustomer").modal("show")</script>-->

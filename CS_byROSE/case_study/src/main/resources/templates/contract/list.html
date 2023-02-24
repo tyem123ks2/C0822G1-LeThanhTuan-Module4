@@ -52,12 +52,13 @@
     </style>
 </head>
 <body>
-<div class="container-fluid">
     <!--------------------------------------------------------header---------------------------------------------------------------->
-    <div class="insert" th:insert="~{/home/header::header}"></div>
+    <div class="container">
+        <div class="insert" th:insert="~{/home/header::header}"></div>
+    </div>
     <!-------------------------------------------------display customer list------------------------------------------------------->
-    <div class="row">
-        <div class="col-lg-9">
+    <div class="container">
+        <div class="col-lg-12">
             <div class="row">
                 <h4>Contract list</h4>
                 <p th:text="${mess}" style="color: red" id="mess"></p>
@@ -217,6 +218,9 @@
             </form>
         </div>
     </div>
+</div>
+<div class="container">
+    <div class="insert" th:insert="~{/home/footer::footer}"></div>
 </div>
 <!-------------------------------------------------------add attach facility in detail contract 1 by modal-------------------------------------------------------------->
 
