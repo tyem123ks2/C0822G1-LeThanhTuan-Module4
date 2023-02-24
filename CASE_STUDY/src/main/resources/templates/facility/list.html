@@ -237,7 +237,7 @@
                 <h5 class="modal-title">Edit service information</h5>
                 <button type="button" onclick="location.href='/facility/show-list'" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/facility/edit-facility" th:object="${facility}" method="post">
+            <form th:action="@{/facility/add-facility}" th:object="${facility}" method="post">
                 <div class="modal-body">
                     <input type="text" th:field="*{id}" id="editId" name="editId" hidden>
                     <input type="text" th:field="*{facilityType}" id="editFacilityType" name="editFacilityType" hidden>

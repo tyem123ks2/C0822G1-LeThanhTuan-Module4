@@ -12,4 +12,6 @@ public interface ICustomerService {
     boolean addNewCustomer(Customer customer);
     boolean editCustomer(Customer customer);
     Customer findById(int id);
+
+    List<Customer> getAllCustomer();
 }

@@ -9,23 +9,24 @@
 </head>
 <body>
 <!------------------------------------------------------header----------------------------------------------------->
-<div class="insert" th:insert="~{/home/header::header}"></div>
-
+<div class="container">
+    <div class="insert" th:insert="~{/home/header::header}"></div>
+</div>
 <!------------------------------------------------display facility list ---------------------------------------------------------->
 <div class="container">
     <div class="col-lg-12">
         <div class="row">
-            <h4>FACILITY LIST</h4>
-            <h2 th:text="${mess}"></h2>
+            <h2 align="center">FACILITY LIST</h2>
+            <h3 th:text="${mess}"></h3>
         </div>
         <div class="row justify-content-center">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <form class="d-flex" th:action="@{/facility/show-list}" method="get">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <input class="form-control me-2" name="searchName" type="search" placeholder="Search by name"
                                aria-label="Search">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <select name="searchTypeId" class="form-select"
                                 aria-label="Example select with button addon">
                             <option value="">Select facility type</option>
@@ -33,14 +34,14 @@
                                     th:text="${facilityType.name}"></option>
                         </select>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </div>
                 </form>
             </div>
             <div class="col-lg-4">
                 <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addService">
-                    <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
+                    <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/> ADD NEW FACILITY
                 </button>
             </div>
             <div class="col-lg-3">
@@ -48,8 +49,8 @@
             </div>
         </div>
         <div class="row">
-            <table class="table">
-                <thead>
+            <table class="table table-striped">
+                <thead class="table align-middle table-secondary" align="center">
                 <tr>
                     <th scope="col">STT</th>
                     <th scope="col">Name</th>
@@ -68,16 +69,16 @@
                 </thead>
                 <tbody>
                 <tr th:each="facility,stt:${facilityPage.content}">
-                    <th scope="row" th:text="${stt.count + facilityPage.number*facilityPage.size}"></th>
+                    <th align="center" scope="row" th:text="${stt.count + facilityPage.number*facilityPage.size}"></th>
                     <td th:text="${facility.name}"></td>
                     <td th:text="${facility.area}"></td>
                     <td th:text="${facility.cost}"></td>
-                    <td th:text="${facility.maxPeople}"></td>
-                    <td th:text="${facility.rentType.name}"></td>
-                    <td th:text="${facility.standardRoom}"></td>
-                    <td th:text="${facility.descriptionOtherConvenience}"></td>
-                    <td th:text="${facility.poolArea}"></td>
-                    <td th:text="${facility.numberOfFloor}"></td>
+                    <td align="center" th:text="${facility.maxPeople}"></td>
+                    <td align="center" th:text="${facility.rentType.name}"></td>
+                    <td align="center" th:text="${facility.standardRoom}"></td>
+                    <td align="center" th:text="${facility.descriptionOtherConvenience}"></td>
+                    <td align="center" th:text="${facility.poolArea}"></td>
+                    <td align="center" th:text="${facility.numberOfFloor}"></td>
                     <td th:text="${facility.facilityFree}"></td>
                     <td>
                         <button type="button"
@@ -103,18 +104,17 @@
         </div>
     </div>
 </div>
-
+<!--Footer-->
+<div class="container">
+    <div class="insert" th:insert="~{/home/footer::footer}"></div>
 </div>
-<div class="insert" th:insert="~{/home/footer::footer}"></div>
-</div>
-
 <!----------------------------------------------------------add modal-------------------------------------------------------------->
 <div class="modal fade" id="addService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Add service information</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" onclick="location.href='/facility/show-list'" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form th:action="@{/facility/add-facility}" th:object="${facility}" method="post">
                 <div class="modal-body">
@@ -204,7 +204,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="location.href='/facility/show-list'" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Submit</button>
                 </div>
             </form>
@@ -315,7 +315,6 @@
         </div>
     </div>
 </div>
-
 <!---------------------------------------------------------------delete modal----------------------------------------------------------------------------->
 <div class="modal fade" id="deleteService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

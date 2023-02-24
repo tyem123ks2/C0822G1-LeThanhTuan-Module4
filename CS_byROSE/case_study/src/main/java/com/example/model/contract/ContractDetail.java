@@ -1,6 +1,7 @@
 package com.example.model.contract;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class ContractDetail {
@@ -8,7 +9,8 @@ public class ContractDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
     private Contract contract;
 
     @ManyToOne()
@@ -19,6 +21,7 @@ public class ContractDetail {
 
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;
+
 
     public ContractDetail() {
     }
@@ -62,4 +65,6 @@ public class ContractDetail {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
+
+
 }

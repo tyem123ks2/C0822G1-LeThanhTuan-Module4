@@ -5,6 +5,7 @@ import com.example.model.employee.Employee;
 import com.example.model.facility.Facility;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Contract {
@@ -24,6 +25,14 @@ public class Contract {
     @JoinColumn(referencedColumnName = "id")
     private Employee employee;
 
+    public List<ContractDetail> getContractDetail() {
+        return contractDetail;
+    }
+
+    public void setContractDetail(List<ContractDetail> contractDetail) {
+        this.contractDetail = contractDetail;
+    }
+
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Facility facility;
@@ -31,10 +40,20 @@ public class Contract {
     @Column(columnDefinition = "boolean default false")
     private boolean isDeleted;
 
-    @OneToOne(mappedBy = "contract")
-    private ContractDetail contractDetail;
+    @OneToMany(mappedBy = "contract")
+    private List<ContractDetail> contractDetail;
+
+    private String editHistory;
 
     public Contract() {
+    }
+
+    public String getEditHistory() {
+        return editHistory;
+    }
+
+    public void setEditHistory(String editHistory) {
+        this.editHistory = editHistory;
     }
 
     public Integer getId() {

@@ -6,6 +6,16 @@
     <title>Contract</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!--  datepicker libraries-->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+          integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
+            integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         #footer {
             background-color: #264F1A;
@@ -26,24 +36,31 @@
             font-family: sans-serif;
             font-size: 90%;
         }
+
+        /*label {*/
+        /*    margin-left: 20px;*/
+        /*}*/
+
+        #datepicker {
+            width: 180px;
+            margin: 0 20px 20px 20px;
+        }
+
+        #datepicker > span:hover {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-//header
-<div class="insert" th:insert="~{/header::}"
-    <div class="row main vh-100">
-        <div class="col-lg-3 overflow-scroll" style="border: 1px solid black">
-            <ul class="list-group">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-                <li class="list-group-item">A fourth item</li>
-                <li class="list-group-item">And a fifth one</li>
-            </ul>
-        </div>
+<div class="container-fluid">
+    <!--------------------------------------------------------header---------------------------------------------------------------->
+    <div class="insert" th:insert="~{/home/header::header}"></div>
+    <!-------------------------------------------------display customer list------------------------------------------------------->
+    <div class="row">
         <div class="col-lg-9">
             <div class="row">
                 <h4>Contract list</h4>
+                <p th:text="${mess}" style="color: red" id="mess"></p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-4">
@@ -70,31 +87,33 @@
                         <th scope="col">End date</th>
                         <th scope="col">Deposit</th>
                         <th scope="col">Total</th>
+                        <th scope="col">History</th>
                         <th scope="col">Attach facility</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="detailContract" items="${detailContractList}" varStatus="stt">
-                        <tr>
-                            <td>${stt.count}</td>
-                            <td>${detailContract.contract.facility.name}</td>
-                            <td>${detailContract.contract.customer.name}</td>
-                            <td>${detailContract.contract.startDate}</td>
-                            <td>${detailContract.contract.endDate}</td>
-                            <td>${detailContract.contract.deposit}</td>
-                            <td></td>
-                            <td>
-                                <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#addAttachFacility">
-                                    <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
-                                </button>
-                                <button type="button" onclick="getAttachFacilityInfo('${detailContract.attachFacility.name}','${detailContract.attachFacility.cost}','${detailContract.attachFacility.unit}','${detailContract.attachFacility.status}')" class="btn btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#dislayAttachFacility">
-                                    Attach facility list
-                                </button>
-                            </td>
-                        </tr>
-                    </c:forEach>
+                    <tr th:each="contract,stt: ${contractPage.content}">
+                        <td th:text="${stt.count}"></td>
+                        <td th:text="${contract.facility.name}"></td>
+                        <td th:text="${contract.customer.name}"></td>
+                        <td th:text="${contract.startDate}"></td>
+                        <td th:text="${contract.endDate}"></td>
+                        <td th:text="${contract.deposit}"></td>
+                        <td th:text="${contract.total}"></td>
+                        <td th:text="${contract.editHistory}"></td>
+                        <td>
+                            <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                    th:attr="onclick=|getContractId('${contract.id}')|"
+                                    data-bs-target="#attachFacility">
+                                <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
+                            </button>
+                            <button type="button" th:attr="onclick=|getAttachFacilityInfo('${contract.id}')|"
+                                    class="btn btn-light" data-bs-toggle="modal"
+                                    data-bs-target="#dislayAttachFacility">
+                                Attach facility list
+                            </button>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -105,122 +124,168 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-<%--<c:import url="add_detail_ct_modal.jsp"></c:import>--%>
-<%----------------------------------------------add detail contract modal----------------------------------------------%>
+<!-------------------------------------------------------add detail contract 1 modal---------------------------------------------------------------->
 <div class="modal fade" id="addDetailContract" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add detail contract</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form class="vh-100" >
+            <form class="vh-100" method="post">
+                <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Start date</label>
-                        <input type="text" class="form-control">
+                        <div class="input-group date " id="startDatepicker">
+                            <input type="text" class="form-control" id="newStartDate"/>
+                            <span class="input-group-append">
+                                <span class="input-group-text bg-light d-block">
+            <i class="fa fa-calendar"></i>
+                                </span></span>
+                        </div>
+                        <div id="startDateError" style="color: red"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">End date</label>
-                        <input type="text" class="form-control">
+                        <div class="input-group date" id="endDatepicker">
+                            <input type="text" class="form-control" id="newEndDate"/>
+                            <span class="input-group-append">
+                                <span class="input-group-text bg-light d-block">
+            <i class="fa fa-calendar"></i>
+                                </span></span>
+                        </div>
+                        <div id="endDateError" style="color: red"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Deposit</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="newDeposit">
+                        <div id="depositError" style="color: red"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Total</label>
-                        <input class="form-control" type="text"  aria-label="Disabled input example" disabled readonly>
+                        <input class="form-control" type="text" id="newTotal" aria-label="Disabled input example"
+                               disabled readonly>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Customer</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" id="newCustomerId" aria-label="Default select example">
+                            <option th:each="customer:${customerList}" th:value="${customer.id}"
+                                    th:text="${customer.name}"></option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Employee</label>
+                        <select class="form-select" id="newEmployeeId" aria-label="Default select example">
+                            <option th:each="employee:${employeeList}" th:value="${employee.id}"
+                                    th:text="${employee.name}"></option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Service</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" id="newFacilityId" aria-label="Default select example">
+                            <option th:each="facility:${facilityList}" th:value="${facility.id}"
+                                    th:text="${facility.name}"></option>
                         </select>
+                    </div>
+                    <div>
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Attach facility</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody id="attachFacilityTable">
+                            </tbody>
+                        </table>
+                        </table>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Attach facility</label>
-                        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addAttachFacility">
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                data-bs-target="#addAttachFacility">
                             <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
                         </button>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="addContractDetail" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<%-----------------------------------------------------attach facility modal--------------------------------------------%>
+<!-------------------------------------------------------add attach facility in detail contract 1 by modal-------------------------------------------------------------->
+
 <div class="modal fade" id="addAttachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" >Add attach facility</h5>
+                <h5 class="modal-title">Add attach facility</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form>
-
-                    <select class="form-select" aria-label="Default select example">
-                        <c:forEach var="attachFacility" items="${attachFacilityList}">
-                            <option value="${attachFacility.id}">${attachFacility.name}</option>
-                        </c:forEach>
+            <form th:object="${contractDetail}" method="post">
+                <div class="modal-body">
+                    <!--                    <input th:field="*{contract.id}" id="contractId1" hidden>-->
+                    <select th:field="*{attachFacility.id}" id="selectedAttachFacility" class="form-select"
+                            aria-label="Default select example">
+                        <option th:each="attachFacility: ${attachFacilityList}" th:value="${attachFacility.id}"
+                                th:text="${attachFacility.name}" th:id="${'atf_' + attachFacility.id}"></option>
                     </select>
-
                     <div class="mb-3">
                         <label class="form-label">Quantity</label>
-                        <input type="number" class="form-control">
+                        <input th:field="*{quantity}" id="selectedQuantity" type="number" class="form-control">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="reset" id="addContract" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+<!-----------------------------------------------------------add attach facility modal(detail contract 2)---------------------------------------------------->
+
+<div class="modal fade" id="attachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add attach facility</h5>
+                <button type="reset" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form th:action="@{/contract/add-attach-facility}" th:object="${contractDetail}" method="post">
+                <div class="modal-body">
+                    <input th:field="*{contract.id}" id="contractId" hidden>
+                    <select th:field="*{attachFacility.id}" class="form-select" aria-label="Default select example">
+                        <option th:each="attachFacility: ${attachFacilityList}" th:value="${attachFacility.id}"
+                                th:text="${attachFacility.name}"></option>
+                    </select>
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input th:field="*{quantity}" type="number" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--------------------------------------------------------display attach facility list ---------------------------------------------->
 <div class="modal fade" id="dislayAttachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" >Attach facility</h5>
+                <h5 class="modal-title">Attach facility</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Cost</th>
-                        <th scope="col">Unit</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td id="name"></td>
-                        <td id="cost"></td>
-                        <td id="unit"></td>
-                        <td id="status"></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="modal-body" id="my-body">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -228,13 +293,277 @@
         </div>
     </div>
 </div>
+<!----------------------------------------------edit attach facility quantity in detail contract 1---------------------------------------->
+<div class="modal fade" id="deleteAttachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete customer information</h5>
+                <div id="deleteAFId"></div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <span>Are you sure that you want to delete attach facility: </span><span id="deleteAFName"> ?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" onclick="confirmDelete()" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script>
-    function getAttachFacilityInfo(name,cost,unit,status) {
-        document.getElementById("name").innerText = name;
-        document.getElementById("cost").innerText = cost;
-        document.getElementById("unit").innerText = unit;
-        document.getElementById("status").innerText = status;
+
+    class AttachFacility {
+        getAttachFacilityId() {
+            return this.attachFacilityId;
+        }
+
+        setAttachFacilityId(value) {
+            this.attachFacilityId = value;
+        }
+
+        getName() {
+            return this.name;
+        }
+
+        setName(value) {
+            this.name = value;
+        }
+
+        getQuantity() {
+            return this.quantity;
+        }
+
+        setQuantity(value) {
+            this.quantity = value;
+        }
+
+
+        constructor(attachFacilityId, name, quantity) {
+            this.attachFacilityId = attachFacilityId;
+            this.name = name;
+            this.quantity = quantity;
+        }
     }
+
+    // bootstrap modal reset to previous content on close
+    $('.modal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    })
+    $('#addDetailContract').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+        $('#attachFacilityTable').html('');
+        stt = 0;
+
+    })
+
+
+    //show message after add contract successfully
+    $(document).ready(function () {
+        const addContractSuccessfullyMsg = sessionStorage.getItem("AddContractSuccessfullyMsg");
+        if (addContractSuccessfullyMsg) {
+            document.getElementById("mess").innerText = addContractSuccessfullyMsg;
+            sessionStorage.removeItem("AddContractSuccessfullyMsg");
+        }
+    })
+
+    function getContractId(id) {
+        document.getElementById("contractId").value = id;
+    }
+
+    // add attach facility in detail contract 1
+    attachFacilityArr = [];
+    let stt = 0;
+    $('#addContract').click(function () {
+        $(document).ready(function () {
+            $('#addAttachFacility').modal('hide');
+
+        })
+        let attachFacilityId = document.getElementById("selectedAttachFacility").value;
+        let attachFacilityName = $(`#atf_${attachFacilityId}`).text();
+        let quantity = document.getElementById("selectedQuantity").value;
+        attachFacility = new AttachFacility(attachFacilityId, attachFacilityName, quantity);
+        attachFacilityArr.push(attachFacility);
+        let table = '';
+        for (let i = 0; i < attachFacilityArr.length; i++) {
+            table += `  "        <tr>\n" +
+                "        <td>${i}</td>\n" +
+                "        <td>${attachFacilityArr[i].name}</td>\n" +
+                "        <td>${attachFacilityArr[i].quantity}</td>\n"  +
+                "        <td><button onclick="getDeleteInfo(${i},${attachFacilityArr[i].name})"
+                        type="button"
+                        class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#deleteAttachFacility">
+                    <img src="https://img.icons8.com/ios-glyphs/30/null/trash--v1.png"/>
+                </button></td>\n"  +
+                 " </tr>\n"`;
+        }
+        stt++;
+        $('#attachFacilityTable').html(table);
+    })
+
+    // function getDeleteInfo(id, name) {
+    //     debugger
+    //     document.getElementById("deleteAFId").value = id;
+    //     document.getElementById("deleteAFName").innerText = name;
+    // }
+    //
+    // function confirmDelete() {
+    //     debugger
+    //     let id = document.getElementById("deleteAFId").value;
+    //     attachFacilityArr.splice(id, 1);
+    // }
+
+    // add detail contract 1
+    function addContractDetail() {
+        contractDetailArr = [];
+        let startDate = document.getElementById("newStartDate").value;
+        let endDate = document.getElementById("newEndDate").value;
+        let deposit = document.getElementById("newDeposit").value;
+        let customerId = document.getElementById("newCustomerId").value;
+        let employeeId = document.getElementById("newEmployeeId").value;
+        let facilityId = document.getElementById("newFacilityId").value;
+        customer = {
+            id: customerId
+        }
+        facility = {
+            id: facilityId
+        }
+        employee = {
+            id: employeeId
+        }
+        let contract = {
+            startDate: startDate,
+            endDate: endDate,
+            deposit: deposit,
+            customer: customer,
+            employee: employee,
+            facility: facility
+        }
+        if (attachFacilityArr.length > 0) {
+            for (let i = 0; i < attachFacilityArr.length; i++) {
+                let newAttachFacility = {
+                    id: attachFacilityArr[i].attachFacilityId
+                }
+                let newContractDetail = {
+                    isDeleted: false,
+                    contract: contract,
+                    attachFacility: newAttachFacility,
+                    quantity: attachFacilityArr[i].quantity
+                }
+                contractDetailArr.push(newContractDetail)
+            }
+        } else {
+            let newContractDetail = {
+                isDeleted: false,
+                contract: contract
+            }
+            contractDetailArr.push(newContractDetail)
+        }
+
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            data: JSON.stringify(contractDetailArr),
+            url: "/contract/add-contract",
+            success: function () {
+                sessionStorage.setItem("AddContractSuccessfullyMsg", "Đã thêm mới thành công");
+                window.location.reload();
+            },
+            error: function (error) {
+                // $('#addDetailContract').modal('show');
+                debugger
+                const errorObj = JSON.parse(error.responseText);
+                if (errorObj.startDate != null) {
+                    document.getElementById("startDateError").innerText = errorObj.startDate;
+                }
+                if (errorObj.endDate != null) {
+                    document.getElementById("endDateError").innerText = errorObj.endDate;
+                }
+                if (errorObj.deposit != null) {
+                    document.getElementById("depositError").innerText = errorObj.deposit;
+                }
+                if (errorObj.attachFacilityErrorDtos.length > 0) {
+                    let attachFacilityError = '';
+                    for (let i = 0; i < errorObj.attachFacilityErrorDtos.length; i++) {
+                        let attachFacility = errorObj.attachFacilityErrorDtos[i];
+                        attachFacilityError += attachFacility.name + " :" + attachFacility.quantityError + '<br>';
+                    }
+                    $('#attachFacilityTable').append(attachFacilityError);
+                }
+            }
+        });
+        event.defaultPrevented();
+    }
+
+    $('#addContractDetail').click(addContractDetail)
+
+    //show attach facility list
+    function getAttachFacilityInfo(contractId) {
+        $.ajax({
+            type: "GET",
+            //tên API
+            url: `/contract/get-attach-facility-list?contractId=${contractId}`,
+            //xử lý khi thành công
+            success: function (data) {
+                //data => đang ở dạng json
+                let table = '  <table class="table">\n' +
+                    '                    <thead>\n' +
+                    '                    <tr>\n' +
+                    '                        <th scope="col">STT</th>\n' +
+                    '                        <th scope="col">Name</th>\n' +
+                    '                        <th scope="col">Cost</th>\n' +
+                    '                        <th scope="col">Unit</th>\n' +
+                    '                        <th scope="col">Status</th>\n' +
+                    '                        <th scope="col">Quantity</th>\n' +
+                    '                    </tr>\n' +
+                    '                    </thead>\n' +
+                    '                    <tbody>\n';
+                // lưu trữ table
+                for (let i = 0; i < data.length; i++) {
+                    table +=
+                        `
+                        <tr>
+                        <th scope="row">${i + 1}</th>
+                        <td id="name">${data[i].name}</td>
+                        <td id="cost">${data[i].cost}</td>
+                        <td id="unit">${data[i].unit}</td>
+                        <td id="status">${data[i].status}</td>
+                        <td id="status">${data[i].quantity}</td>
+                    </tr>
+                        `;
+                }
+                table += ' </tbody>\n' +
+                    '                </table>';
+                $('#my-body').html(table)
+            }
+        });
+    }
+
+    $(function () {
+        const startDatepicker = document.getElementById("startDatepicker");
+        if (startDatepicker) {
+            $('#startDatepicker').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+        }
+        const endDatepicker = document.getElementById("endDatepicker");
+        if (endDatepicker) {
+            $('#endDatepicker').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+        }
+    });
+
 </script>
 </body>
 </html>
