@@ -35,7 +35,9 @@ public class FacilityController {
         private IRentTypeService rentTypeService;
 
         @GetMapping(value = "/show-list")
-        public String showList(Model model, @RequestParam(value = "searchName", defaultValue = "") String name, @RequestParam(value = "searchTypeId", defaultValue = "") String typeId, @PageableDefault(size = 3) Pageable pageable) {
+        public String showList(Model model, @RequestParam(value = "searchName", defaultValue = "") String name,
+                               @RequestParam(value = "searchTypeId", defaultValue = "") String typeId,
+                               @PageableDefault(size = 3) Pageable pageable) {
             Page<Facility> facilityPage;
             if (typeId.equals("")) {
                 facilityPage = facilityService.searchName(name, pageable);
@@ -52,7 +54,9 @@ public class FacilityController {
         }
 
         @PostMapping(value = "/add-facility")
-        public String addNewFacility(@Validated @ModelAttribute("facility") FacilityDto facilityDto, BindingResult bindingResult, RedirectAttributes redirectAttributes, Pageable pageable, Model model) {
+        public String addNewFacility(@Validated @ModelAttribute("facility") FacilityDto facilityDto,
+                                     BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                     Pageable pageable, Model model) {
             if (bindingResult.hasErrors()) {
                 Page<Facility> facilityPage = facilityService.searchName("", pageable);
                 List<RentType> rentTypeList = rentTypeService.getAllRentType();
@@ -61,26 +65,28 @@ public class FacilityController {
                 model.addAttribute("facilityPage", facilityPage);
                 model.addAttribute("facilityTypeList", facilityTypeList);
                 model.addAttribute("rentTypeList", rentTypeList);
+                model.addAttribute("hasErr", "true");
                 return "facility/list";
-            }
-            Facility facility = new Facility();
-            BeanUtils.copyProperties(facilityDto, facility);
-            boolean check = facilityService.addNewFacility(facility);
-            String mess;
-            if (check) {
-                mess = "Thêm mới dịch vụ thành công";
             } else {
-                mess = "Đã xảy ra lỗi";
+                Facility facility = new Facility();
+                BeanUtils.copyProperties(facilityDto, facility);
+                boolean check = facilityService.addNewFacility(facility);
+                String mess;
+                if (check) {
+                    mess = "Thêm mới dịch vụ thành công";
+                } else {
+                    mess = "Đã xảy ra lỗi";
+                }
+                redirectAttributes.addFlashAttribute("mess", mess);
+                return "redirect:/facility/show-list";
             }
-            redirectAttributes.addFlashAttribute("mess", mess);
-            return "redirect:/facility/show-list";
         }
 
         @PostMapping(value = "/edit-facility")
         public String editFacility(@Validated @ModelAttribute("facility") FacilityDto facilityDto,
                                    BindingResult bindingResult, RedirectAttributes redirectAttributes,
                                    Pageable pageable, Model model) {
-            if (bindingResult.hasErrors()) {
+            if (!bindingResult.hasErrors()) {
                 Page<Facility> facilityPage = facilityService.searchName("", pageable);
                 List<RentType> rentTypeList = rentTypeService.getAllRentType();
                 List<FacilityType> facilityTypeList = facilityTypeService.getAllType();

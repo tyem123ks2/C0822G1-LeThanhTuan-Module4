@@ -1,6 +1,5 @@
 package com.example.model.customer;
 
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -16,15 +15,15 @@ public class CustomerDto implements Validator {
     private String dateOfBirth;
 
     @NotBlank(message = "tên khách hàng không được để trống")
-    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",message = "Tên khách hàng không thể chứa ký tự đặc biệt và không thể chứa số")
+    @Pattern(regexp = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$", message = "Tên khách hàng không thể chứa ký tự đặc biệt và không thể chứa số")
     private String name;
     private int gender;
 
     @NotBlank(message = "số cmnd không được để trống")
-    @Pattern(regexp = "(\\d{9})|(\\d{12})",message = "số cmnd phải đúng định dạng,vd:XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
+    @Pattern(regexp = "(\\d{9})|(\\d{12})", message = "số cmnd phải đúng định dạng,vd:XXXXXXXXX hoặc XXXXXXXXXXXX (X là số 0-9).")
     private String idCard;
 
-    @Pattern(regexp = "(090\\d{7})|(091\\d{7})|(\\(84\\)\\+90\\d{7})|(\\(84\\)\\+91\\d{7})",message = "Số điện thoại phải đúng định dạng, vd:090xxxxxxx; 091xxxxxxx; (84)+90xxxxxxx; (84)+91xxxxxxx " )
+    @Pattern(regexp = "(090\\d{7})|(091\\d{7})|(\\(84\\)\\+90\\d{7})|(\\(84\\)\\+91\\d{7})", message = "Số điện thoại phải đúng định dạng, vd:090xxxxxxx; 091xxxxxxx; (84)+90xxxxxxx; (84)+91xxxxxxx ")
     @NotBlank(message = "số điện thoại không được để trống")
     private String phoneNumber;
     @Pattern(regexp = "[a-zA-Z]+\\w+@\\w+(\\.\\w+)+", message = "email phải đúng định dạng, vd: abc123@gmail.com")
@@ -122,7 +121,6 @@ public class CustomerDto implements Validator {
         } catch (DateTimeParseException e) {
             errors.rejectValue("dateOfBirth", "dateOfBirth", "Ngày sinh phải đúng định dạng dd/MM/yyyy");
         }
-
         //validate name
         String strRegex = "^([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$";
         String[] names = customerDto.getName().split(" ");
@@ -135,7 +133,7 @@ public class CustomerDto implements Validator {
         for (int i = 0; i < names.length; i++) {
             firstLetter = names[i].charAt(0);
             if (firstLetter < 'A' || firstLetter > 'Z') {
-errors.rejectValue("name","name","Ký tự đầu tiên phải viết hoa");
+                errors.rejectValue("name", "name", "Ký tự đầu tiên phải viết hoa");
             }
         }
 

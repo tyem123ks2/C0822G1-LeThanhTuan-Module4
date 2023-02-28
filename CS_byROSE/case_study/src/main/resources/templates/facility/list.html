@@ -40,7 +40,7 @@
                 </form>
             </div>
             <div class="col-lg-4">
-                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addService">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addFacilityaddFacility">
                     <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/> ADD NEW FACILITY
                 </button>
             </div>
@@ -109,7 +109,9 @@
     <div class="insert" th:insert="~{/home/footer::footer}"></div>
 </div>
 <!----------------------------------------------------------add modal-------------------------------------------------------------->
-<div class="modal fade" id="addService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div th:style="${hasErr == 'true' ? 'display: block' : 'display: none'}"
+     id="addFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     th:class="${hasErr == 'true' ? 'modal fade show' : 'modal fade'}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -127,7 +129,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Name</label>
-                        <input type="text" th:field="*{name}" class="form-control" name="name">
+                        <input type="text" pattern="^([\p{Lu}][\p{Ll}]{1,8})(\s([\p{Lu}]|[\p{Lu}][\p{Ll}]{1,10})){0,5}$" th:field="*{name}" class="form-control" name="name">
                         <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                             <p>Incorrect name</p>
                         </div>
@@ -204,7 +206,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" onclick="location.href='/facility/show-list'" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" onclick="location.href='/facility/show-list'" class="btn btn-secondary"
+                            data-bs-dismiss="modal" th:attr="onclick=|onCloseModal()|">Close</button>
                     <button type="submit" class="btn btn-danger">Submit</button>
                 </div>
             </form>
@@ -326,8 +329,8 @@
                 </div>
                 <div class="modal-body">
                     <input type="text" th:field="*{id}" name="deleteId" id="deleteId" hidden>
-                    <span>Are you sure that you want to delete information of </span><span
-                        id="deleteName"> ?</span>
+                    <span>Are you sure that you want to delete information of </span>
+                    <span> id="deleteName"> ?</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -425,6 +428,12 @@
             editNumberOfFloors.style.display = "none";
             editFacilityFree.style.display = "block";
         }
+    }
+
+    function onCloseModal() {
+        document.getElementById('addFacility').style.display = 'none';
+        // document.getElementById('exampleModalUpdate').style.display = 'none';
+        window.location.href = "/facility";
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

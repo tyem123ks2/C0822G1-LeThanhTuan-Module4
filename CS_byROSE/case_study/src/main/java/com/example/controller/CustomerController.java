@@ -33,7 +33,10 @@ public class CustomerController {
     private ICustomerTypeService customerTypeService;
 
     @GetMapping(value = "/show-list")
-    public String showList(Model model, @RequestParam(value = "searchName", defaultValue = "") String name, @RequestParam(value = "searchEmail", defaultValue = "") String email, @RequestParam(value = "searchCustomerTypeId", defaultValue = "0") int customerTypeId, @PageableDefault(size = 5) Pageable pageable) {
+    public String showList(Model model, @RequestParam(value = "searchName", defaultValue = "") String name,
+                           @RequestParam(value = "searchEmail", defaultValue = "") String email,
+                           @RequestParam(value = "searchCustomerTypeId", defaultValue = "0") int customerTypeId,
+                           @PageableDefault(size = 5) Pageable pageable) {
         Page<Customer> customerList;
         if (customerTypeId == 0) {
             customerList = customerService.searchName(name, email, pageable);
@@ -49,15 +52,18 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/add")
-    public String addNewCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+    public String addNewCustomer(@Validated CustomerDto customerDto, BindingResult bindingResult, Model model,
+                                 RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             Pageable pageable = null;
             Page<Customer> customerList = customerService.searchName("", "", pageable);
             List<CustomerType> customerTypeList = customerTypeService.getAllCustomerType();
             boolean isModal = true;
+            model.addAttribute("customerDto", customerDto);
             model.addAttribute("isModal", isModal);
             model.addAttribute("customerList", customerList);
             model.addAttribute("customerTypeList", customerTypeList);
+            model.addAttribute("hasErr","true");
             return "/customer/list";
         } else {
             Customer customer = new Customer();

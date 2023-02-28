@@ -125,9 +125,9 @@
                 </button>
             </td>
         </tr>
-        <a th:href="@{/customer/show-list(page=${customerList.number-1})}" th:if="${customerList.hasPrevious()}"
+        <a th:href="@{/customer/show-list(page=${customerList.number - 1})}" th:if="${customerList.hasPrevious()}"
            style="text-decoration: none">Back</a>
-        <a th:href="@{/customer/show-list(page=${customerList.number+1})}" th:if="${customerList.hasNext()}"
+        <a th:href="@{/customer/show-list(page=${customerList.number + 1})}" th:if="${customerList.hasNext()}"
            style="text-decoration: none">Next</a>
         </tbody>
     </table>
@@ -138,8 +138,9 @@
     <div class="insert" th:insert="~{/home/footer::footer}"></div>
 </div>
 <!------------------------------------------------------------add modal-------------------------------------------------------->
-<div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<!--    <script th:inline="javascript" th:if="${#fields.hasErrors('*')}">$("#addCustomer").modal("show")</script>-->
+<div th:style="${hasErr == 'true' ? 'display: block' : 'display: none'}"
+     id="addCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     th:class="${hasErr == 'true' ? 'modal fade show' : 'modal fade'}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -151,7 +152,6 @@
                     <div class="mb-3">
                         <label class="form-label" th:for="name">Name</label>
                         <input type="text" th:field="*{name}"
-                               pattern="^([\p{Lu}][\p{Ll}]{1,8})(\s([\p{Lu}]|[\p{Lu}][\p{Ll}]{1,10})){0,5}$"
                                class="form-control" name="name" required>
                         <div class="text text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
                             <p>Incorrect name</p>
@@ -220,7 +220,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal"
+                                th:attr="onclick=|onCloseModal()|">Close</button>
+
                         <button type="Submit" class="btn btn-danger">Submit</button>
                     </div>
                 </div>
@@ -362,6 +364,11 @@
         });
     }
 
+    function onCloseModal() {
+        document.getElementById('addCustomer').style.display = 'none';
+        // document.getElementById('exampleModalUpdate').style.display = 'none';
+        window.location.href = "/customer";
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

@@ -52,75 +52,84 @@
     </style>
 </head>
 <body>
-    <!--------------------------------------------------------header---------------------------------------------------------------->
-    <div class="container">
-        <div class="insert" th:insert="~{/home/header::header}"></div>
-    </div>
-    <!-------------------------------------------------display customer list------------------------------------------------------->
-    <div class="container">
-        <div class="col-lg-12">
-            <div class="row">
-                <h4>Contract list</h4>
-                <p th:text="${mess}" style="color: red" id="mess"></p>
+<!--------------------------------------------------------header---------------------------------------------------------------->
+<div class="container">
+    <div class="insert" th:insert="~{/home/header::header}"></div>
+</div>
+<!-------------------------------------------------display customer list------------------------------------------------------->
+<div class="container">
+    <div class="col-lg-12">
+        <div class="row">
+            <h2 align="center">CONTRACT LIST</h2>
+            <h3 th:text="${mess}"></h3>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-                <div class="col-lg-4">
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                            data-bs-target="#addDetailContract">
-                        <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Service</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Start date</th>
-                        <th scope="col">End date</th>
-                        <th scope="col">Deposit</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">History</th>
-                        <th scope="col">Attach facility</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="contract,stt: ${contractPage.content}">
-                        <td th:text="${stt.count}"></td>
-                        <td th:text="${contract.facility.name}"></td>
-                        <td th:text="${contract.customer.name}"></td>
-                        <td th:text="${contract.startDate}"></td>
-                        <td th:text="${contract.endDate}"></td>
-                        <td th:text="${contract.deposit}"></td>
-                        <td th:text="${contract.total}"></td>
-                        <td th:text="${contract.editHistory}"></td>
-                        <td>
-                            <button type="button" class="btn btn-light" data-bs-toggle="modal"
-                                    th:attr="onclick=|getContractId('${contract.id}')|"
-                                    data-bs-target="#attachFacility">
-                                <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
-                            </button>
-                            <button type="button" th:attr="onclick=|getAttachFacilityInfo('${contract.id}')|"
-                                    class="btn btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#dislayAttachFacility">
-                                Attach facility list
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="col-lg-4">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                        data-bs-target="#addDetailContract">
+                    <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
+                </button>
             </div>
         </div>
+        <div class="row">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Start date</th>
+                    <th scope="col">End date</th>
+                    <th scope="col">Deposit</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">History</th>
+                    <th scope="col">Attach facility</th>
+                    <th scope="col">
+                </tr>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="contract,stt: ${contractPage.content}">
+                    <td th:text="${stt.count}"></td>
+                    <td th:text="${contract.facility.name}"></td>
+                    <td th:text="${contract.customer.name}"></td>
+                    <td th:text="${contract.startDate}"></td>
+                    <td th:text="${contract.endDate}"></td>
+                    <td th:text="${contract.deposit}"></td>
+                    <td th:text="${contract.total}"></td>
+                    <td th:text="${contract.editHistory}"></td>
+                    <td>
+                        <button type="button" class="btn btn-light" data-bs-toggle="modal"
+                                th:attr="onclick=|getContractId('${contract.id}')|"
+                                data-bs-target="#attachFacility">
+                            <img src="https://img.icons8.com/offices/30/null/plus-2-math.png"/>
+                        </button>
+                        <button type="button" th:attr="onclick=|getAttachFacilityInfo('${contract.id}')|"
+                                class="btn btn-light" data-bs-toggle="modal"
+                                data-bs-target="#dislayAttachFacility">
+                            Attach facility list
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" th:attr="onclick=|getFacilityId('${contract.id}')|"
+                                class="btn btn-light" data-bs-toggle="modal"
+                                data-bs-target="#deleteService">
+                            <img src="https://img.icons8.com/ios-glyphs/30/null/trash--v1.png"/>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="row " id="footer">@copyright by me</div>
+</div>
+<div class="row " id="footer">@copyright by me</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -201,7 +210,6 @@
                             <tbody id="attachFacilityTable">
                             </tbody>
                         </table>
-                        </table>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Attach facility</label>
@@ -231,7 +239,7 @@
                 <h5 class="modal-title">Add attach facility</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form th:object="${contractDetail}" method="post">
+            <form th:action="@{/contract/add-attach-facility}" th:object="${contractDetail}" method="post">
                 <div class="modal-body">
                     <!--                    <input th:field="*{contract.id}" id="contractId1" hidden>-->
                     <select th:field="*{attachFacility.id}" id="selectedAttachFacility" class="form-select"
@@ -252,7 +260,7 @@
         </div>
     </div>
 </div>
-<!-----------------------------------------------------------add attach facility modal(detail contract 2)---------------------------------------------------->
+<!-------add attach facility modal(detail contract 2)---------------------------------------------------->
 
 <div class="modal fade" id="attachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -282,7 +290,7 @@
     </div>
 </div>
 <!--------------------------------------------------------display attach facility list ---------------------------------------------->
-<div class="modal fade" id="dislayAttachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="displayAttachFacility" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -355,16 +363,16 @@
         }
     }
 
-    // bootstrap modal reset to previous content on close
-    $('.modal').on('hidden.bs.modal', function () {
-        $(this).find('form').trigger('reset');
-    })
-    $('#addDetailContract').on('hidden.bs.modal', function () {
-        $(this).find('form').trigger('reset');
-        $('#attachFacilityTable').html('');
-        stt = 0;
-
-    })
+    // // bootstrap modal reset to previous content on close
+    // $('.modal').on('hidden.bs.modal', function () {
+    //     $(this).find('form').trigger('reset');
+    // })
+    // $('#addDetailContract').on('hidden.bs.modal', function () {
+    //     $(this).find('form').trigger('reset');
+    //     $('#attachFacilityTable').html('');
+    //     stt = 0;
+    //
+    // })
 
 
     //show message after add contract successfully

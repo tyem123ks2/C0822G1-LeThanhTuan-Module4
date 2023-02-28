@@ -4,6 +4,6 @@ import com.example.model.customer.CustomerType;
 
 import java.util.List;
 
-public interface ICustomerTypeService {
+public interface    ICustomerTypeService {
     List<CustomerType> getAllCustomerType();
 }
