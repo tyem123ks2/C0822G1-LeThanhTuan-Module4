@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block th:replace="~{view/layout::bootstrap}"></th:block>
+
+    <style>
+        @media (min-width: 992px){
+            .content div {
+                margin-top: 15%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content div {
+                margin-top: 30%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<th:block th:replace="~{view/layout::menu}"></th:block>
+<p sec:authorize="!isAnonymous()" class="text-danger m-2" th:text="${#authentication.getPrincipal().username}"></p>
+<div class="content">
+    <div class="justify-content-flex text-center">
+        <a href="/login" class="btn btn-outline-success">Sign-in</a>
+        <a href="/sign-up" class="btn btn-outline-primary">Sign-up</a>
+    </div>
+</div>
+
+</body>
+
+</html>

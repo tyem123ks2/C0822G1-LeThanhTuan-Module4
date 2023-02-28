@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <th:block th:replace="~{view/layout::bootstrap}"></th:block>
+    <style>
+        @media (min-width: 992px) {
+            .content form{
+                margin-top: 10%;
+            }
+
+            .content .btn{
+                margin-left: 65% !important;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content form{
+                margin-top: 10%;
+            }
+
+            .content .btn{
+                margin-left: 78% !important;
+            }
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{view/layout::menu}"></th:block>
+
+<div class="content container">
+    <form name="f" th:action="@{/j_spring_security_check}" method="POST">
+        <div class="form-group row justify-content-center">
+            <label for="" class="col-form-label col-lg-2 col-md-3 col-sm-3">Username </label>
+            <input class="form-control col-lg-3  col-md-6 col-sm-7" type="text" name="username" value="">
+        </div>
+        <div class="form-group row justify-content-center">
+            <label for="" class="col-form-label col-lg-2 col-md-3  col-sm-3">Password </label>
+            <input class="form-control col-lg-3  col-md-6 col-sm-7" type="text" name="password">
+        </div>
+        <input type="submit" value="Login" class="btn btn-outline-success">
+    </form>
+</div>
+</body>
+</html>
